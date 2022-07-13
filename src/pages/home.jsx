@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import { RoboList } from '../cmps/robot-list'
 import { roboService } from '../services/robo.service'
 
 export const Home = () => {
@@ -18,6 +19,6 @@ export const Home = () => {
     if (!robots) return 'Loading'
 
     return <section className="home-page main-layout">
-        <h1>APP</h1>
+        <RoboList robots={robots} />
     </section>
 }
