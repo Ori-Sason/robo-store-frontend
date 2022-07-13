@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { RoboPreview } from './robot-preview'
+import { RobotPreview } from './robot-preview'
 
-export const RoboList = ({ robots }) => {
-
+export const RobotList = ({ robots }) => {
+    
     return <ul className="robot-list clean-list">
         {robots.map(robot =>
             <li key={robot._id}>
                 <Link to={`/robots/${robot._id}`}>
-                    <RoboPreview robot={robot} />
+                    <RobotPreview robot={robot} />
                 </Link>
             </li>)}
     </ul>

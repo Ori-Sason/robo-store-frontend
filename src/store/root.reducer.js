@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { roboReducer } from './reducers/robo.reducer'
+import { robotReducer } from './reducers/robot.reducer'
 
 export const rootReducer = combineReducers({
-    roboModule: roboReducer,
+    robotModule: robotReducer,
 })

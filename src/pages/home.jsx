@@ -1,24 +1,22 @@
 
-import { useEffect, useState } from 'react'
-import { RoboList } from '../cmps/robot-list'
-import { roboService } from '../services/robo.service'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RobotList } from '../cmps/robot-list'
+
+import { loadRobots } from '../store/actions/robot.action'
 
 export const Home = () => {
 
-    const [robots, setRobots] = useState(null)
+    const robots = useSelector(storeState => storeState.robotModule.robots)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        loadRobots()
+        dispatch(loadRobots())
     }, [])
 
-    const loadRobots = async () => {
-        const robots = await roboService.query()
-        setRobots(robots)
-    }
-
-    if (!robots) return 'Loading'
+    if (!robots?.length) return 'Loading'
 
     return <section className="home-page main-layout">
-        <RoboList robots={robots} />
+        <RobotList robots={robots} />
     </section>
 }

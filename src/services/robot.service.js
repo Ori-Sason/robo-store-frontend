@@ -1,7 +1,7 @@
 import { storageService } from './async-storage.service'
 import { utilService } from './util.service'
 
-export const roboService = {
+export const robotService = {
 	query,
 	getById
 }

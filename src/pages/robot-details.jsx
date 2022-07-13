@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { roboService } from '../services/robo.service'
+import { robotService } from '../services/robot.service'
 
 import outOfStockImg from '../assets/img/out-of-stock.png'
 import { utilService } from '../services/util.service'
@@ -15,7 +15,7 @@ export const RobotDetails = () => {
     }, [params])
 
     const loadRobot = async (robotId) => {
-        const robot = await roboService.getById(robotId)
+        const robot = await robotService.getById(robotId)
         setRobot(robot)
     }
 

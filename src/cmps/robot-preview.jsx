@@ -1,7 +1,7 @@
 import { utilService } from '../services/util.service'
 import outOfStockImg from '../assets/img/out-of-stock.png'
 
-export const RoboPreview = ({ robot }) => {
+export const RobotPreview = ({ robot }) => {
     return <section className="robot-preview">
         <h2 className='name'>{robot.name}</h2>
         <img className='img' src={robot.img} alt={robot.name} />
