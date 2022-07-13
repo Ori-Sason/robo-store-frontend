@@ -3,7 +3,8 @@ import { utilService } from './util.service'
 
 export const robotService = {
 	query,
-	getById
+	getById,
+	getLabels,
 }
 
 const STORAGE_KEY = 'robotsDb'
@@ -647,4 +648,8 @@ async function query() {
 async function getById(robotId) {
 	const robot = await storageService.get(STORAGE_KEY, robotId)
 	return robot
+}
+
+function getLabels() {
+	return gLabels
 }

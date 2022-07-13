@@ -1,0 +1,49 @@
+.robot-filter {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+    input[name='name'] {
+        flex-grow: 1;
+    }
+
+    .in-stock {
+        flex-shrink: 0;
+    }
+
+    .labels-container {
+        position: relative;
+
+        input {
+            width: 300px;
+            background-color: whitesmoke;
+            cursor: pointer;
+        }
+
+        .labels-select {
+            position: absolute;
+            bottom: 0;
+            transform: translate(-100%, 100%);
+            z-index: 10;
+            width: 300px;
+            overflow-y: auto;
+            cursor: pointer;
+        }
+    }
+
+    button[type='submit'] {
+        align-self: stretch;
+        padding: 0 1em;
+        color: $primary-clr-100;
+        border: none;
+        border-radius: 6px;
+        box-shadow: 0 0 5px $primary-clr-900;
+        background-color: $primary-clr-500;
+
+        &:hover {
+            background-color: darken($primary-clr-500, 5%);
+        }
+    }
+}
