@@ -2,7 +2,8 @@ import { storageService } from './async-storage.service'
 import { utilService } from './util.service'
 
 export const roboService = {
-    query
+	query,
+	getById
 }
 
 const STORAGE_KEY = 'robotsDb'
@@ -614,31 +615,36 @@ const gRobots = `[
 createRoboDbOnLocalStorage()
 async function createRoboDbOnLocalStorage() {
 
-    let robots = await storageService.query(STORAGE_KEY, 0)
+	let robots = await storageService.query(STORAGE_KEY, 0)
 
-    if (!robots?.length) {
-        robots = JSON.parse(gRobots)
-            .map(robot => {
-                const id = utilService.makeId(16)
+	if (!robots?.length) {
+		robots = JSON.parse(gRobots)
+			.map(robot => {
+				const id = utilService.makeId(16)
 
-                const labels = []
-                const numOfLabels = utilService.getRandomIntInclusive(1, 4)
-                for (let i = 0; i < numOfLabels; i++) {
-                    labels.push(gLabels[i])
-                }
+				const labels = []
+				const numOfLabels = utilService.getRandomIntInclusive(1, 4)
+				for (let i = 0; i < numOfLabels; i++) {
+					labels.push(gLabels[i])
+				}
 
-                return {
-                    ...robot,
-                    _id: id,
-                    labels,
-                    img: `https://robohash.org/${id}?set=set3`
-                }
-            })
-        storageService.createDatabase(STORAGE_KEY, robots)
-    }
+				return {
+					...robot,
+					_id: id,
+					labels,
+					img: `https://robohash.org/${id}?set=set3`
+				}
+			})
+		storageService.createDatabase(STORAGE_KEY, robots)
+	}
 }
 
 async function query() {
-    const robots = await storageService.query(STORAGE_KEY)
-    return robots
+	const robots = await storageService.query(STORAGE_KEY)
+	return robots
+}
+
+async function getById(robotId) {
+	const robot = await storageService.get(STORAGE_KEY, robotId)
+	return robot
 }

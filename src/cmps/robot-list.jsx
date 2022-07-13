@@ -5,8 +5,8 @@ export const RoboList = ({ robots }) => {
 
     return <ul className="robot-list clean-list">
         {robots.map(robot =>
-            <li>
-                <Link key={robot._id} to={`/robots/${robot._id}`}>
+            <li key={robot._id}>
+                <Link to={`/robots/${robot._id}`}>
                     <RoboPreview robot={robot} />
                 </Link>
             </li>)}

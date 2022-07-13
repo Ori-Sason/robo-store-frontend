@@ -1,0 +1,30 @@
+.robot-details {
+
+    .name {
+        font-family: Lobster;
+        font-size: 2.5rem;
+        color: $primary-clr-900;
+    }
+
+    .img {
+        max-width: 12.5rem;
+        display: block;
+    }
+
+    .labels,
+        .date {
+            margin-bottom: 0.5em;
+        }
+
+    .img-container {
+        position: relative;
+        display: inline-block;        
+
+        .out-of-stock {
+            position: absolute;
+            right: -10px;
+            bottom: -5px;
+            max-width: 100px;
+        }
+    }
+}
