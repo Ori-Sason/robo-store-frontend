@@ -18,7 +18,7 @@ export const RobotEdit = () => {
         if (params.id) (async function () {
             const robot = await robotService.getById(params.id)
             setRobot(robot)
-        })()
+        })();
     }, [params.id])
 
     const onChangeInput = ({ target: { name, value } }) => {

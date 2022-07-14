@@ -728,6 +728,6 @@ function getEmptyRobot() {
 }
 
 async function getLabels() {
-	return await httpService.get(`${BASE_PATH}/labels`)
+	return  await httpService.get(`${BASE_PATH}/labels`)
 	// return gLabels.sort()
 }

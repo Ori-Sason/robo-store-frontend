@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { robotService } from '../services/robot.service'
 
 export const RobotFilter = ({ onFilterBy }) => {
@@ -6,6 +6,14 @@ export const RobotFilter = ({ onFilterBy }) => {
     const [filterBy, setFilterBy] = useState(null)
     const [sortBy, setSortBy] = useState(null)
     const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false)
+    const labelsRef = useRef(null)
+
+    useEffect(() => {
+        ;(async function () {
+            const labels = await robotService.getLabels()
+            labelsRef.current = labels
+        })()
+    }, [])
 
     const onInputChange = ({ target: { name, value, selectedOptions } }) => {
         if (name === 'labels') value = Array.from(selectedOptions).map(option => option.value)
@@ -23,8 +31,6 @@ export const RobotFilter = ({ onFilterBy }) => {
         const updatedFilterBy = { ...filterBy, sortBy }
         onFilterBy(updatedFilterBy)
     }
-
-    const labels = useRef(robotService.getLabels())
 
     return <form className="robot-filter" onSubmit={onSubmit}>
         <input type="text" name="name" id="" placeholder='Robot name' value={filterBy?.name || ''} onChange={onInputChange} />
@@ -44,8 +50,8 @@ export const RobotFilter = ({ onFilterBy }) => {
             <span onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}>
                 <input type="text" value={filterBy?.labels?.join(', ') || ''} disabled />
             </span>
-            {isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labels.current.length}>
-                {labels.current.map(label => <option key={label}>{label}</option>)}
+            {labelsRef.current && isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labelsRef.current.length}>
+                {labelsRef.current.map(label => <option key={label}>{label}</option>)}
             </select>}
         </div>
 
