@@ -4,6 +4,7 @@ import { utilService } from './util.service'
 export const robotService = {
 	query,
 	getById,
+	getEmptyRobot,
 	getLabels,
 }
 
@@ -686,6 +687,16 @@ async function getById(robotId) {
 	return robot
 }
 
+function getEmptyRobot(){
+	return {
+		name: '',
+		price: 0,
+		labels: [],
+		inStock: false,
+		img: ''
+	}
+}
+
 function getLabels() {
-	return gLabels
+	return gLabels.sort()
 }

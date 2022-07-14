@@ -22,7 +22,7 @@ export const RobotDetails = () => {
     if (!robot) return 'Loading'
 
     return <section className="robot-details main-layout">
-        <h2 className='name'>{robot.name}</h2>
+        <h2 className='name page-header'>{robot.name}</h2>
         <div className='img-container'>
             <img className='img' src={robot.img} alt={robot.name} />
             {!robot.inStock && <img className='out-of-stock' src={outOfStockImg} alt="out of stock" />}

@@ -1,0 +1,28 @@
+.robot-edit {
+
+    &>h2 {
+        margin-bottom: 0.5em;
+    }
+
+    &>ul {
+        margin-bottom: 2em;
+
+        &>* {
+            margin-bottom: 0.7em;
+        }
+    }
+
+    input[type='text'],
+    input[type='url'] {
+        width: 400px;
+    }
+
+    .edit-labels-container {
+        display: flex;
+    }
+
+    button[type='submit'] {
+        @include main-btn;
+        padding: 0.5em 1em;
+    }
+}
