@@ -9,7 +9,7 @@ export const RobotFilter = ({ onFilterBy }) => {
 
     const onInputChange = ({ target: { name, value, selectedOptions } }) => {
         if (name === 'labels') value = Array.from(selectedOptions).map(option => option.value)
-        else if (name === 'inStock') value = value === 'true'
+        else if (name === 'inStock') value = value === 'all' ? 'all' : value === 'true'
         setFilterBy({ ...filterBy, [name]: value })
     }
 
@@ -35,6 +35,8 @@ export const RobotFilter = ({ onFilterBy }) => {
             <label htmlFor="filter-in-stock-yes">Yes</label>
             <input type="radio" name="inStock" id="filter-in-stock-no" value={false} onChange={onInputChange} />
             <label htmlFor="filter-in-stock-no">No</label>
+            <input type="radio" name="inStock" id="filter-in-stock-all" value={'all'} onChange={onInputChange} />
+            <label htmlFor="filter-in-stock-all">All</label>
         </div>
 
         <div className='labels-container'>

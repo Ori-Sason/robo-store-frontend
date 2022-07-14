@@ -673,7 +673,7 @@ async function query(filterBy) {
 			// return true
 		})
 
-		if (inStock !== undefined) robots = robots.filter(robot => robot.inStock === inStock)
+		if (inStock !== undefined && inStock !== 'all') robots = robots.filter(robot => robot.inStock === inStock)
 
 		if (sortBy) robots = robots.sort((a, b) => {
 			if (sortBy === 'name') return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
