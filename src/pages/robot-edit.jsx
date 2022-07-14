@@ -81,7 +81,7 @@ export const RobotEdit = () => {
                     <label htmlFor="edit-in-stock-no">No</label>
                 </li>
             </ul>
-            <button type="submit">Save</button>
+            <button className='main-btn' type="submit">Save</button>
         </form>
     </section>
 }

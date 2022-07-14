@@ -1,4 +1,5 @@
 import { storageService } from './async-storage.service'
+import { httpService } from './http.service'
 import { utilService } from './util.service'
 
 export const robotService = {
@@ -11,6 +12,7 @@ export const robotService = {
 }
 
 const STORAGE_KEY = 'robotsDb'
+const BASE_PATH = 'robot'
 
 const gLabels = ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor"]
 const gRobots = `[
@@ -647,46 +649,49 @@ async function createRoboDbOnLocalStorage() {
 }
 
 async function query(filterBy) {
-	let robots = await storageService.query(STORAGE_KEY)
-
-	if (filterBy) {
-		const { name, labels, inStock, sortBy } = filterBy
-
-		if (name) {
-			const regex = new RegExp(name, 'gi')
-			robots = robots.filter(robot => regex.test(robot.name))
-		}
-
-		if (labels?.length) robots = robots.filter(robot => {
-			//this is an OR filtering (at least one label)
-			for (let i = 0; i < robot.labels.length; i++) {
-				if (labels.includes(robot.labels[i])) return true
-			}
-
-			return false
-
-			//this is an AND filtering (all labels)
-			// for (let i = 0; i < labels.length; i++) {
-			// 	if (!robot.labels.includes(labels[i])) return false
-			// }
-
-			// return true
-		})
-
-		if (inStock !== undefined && inStock !== 'all') robots = robots.filter(robot => robot.inStock === inStock)
-
-		if (sortBy) robots = robots.sort((a, b) => {
-			if (sortBy === 'name') return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-			return a[sortBy] - b[sortBy]
-		})
-	}
-
+	let robots = await httpService.get(BASE_PATH, filterBy)
 	return robots
+
+	/* LOCAL STORAGE */
+	// let robots = await storageService.query(STORAGE_KEY)
+
+	// if (filterBy) {
+	// 	const { name, labels, inStock, sortBy } = filterBy
+
+	// 	if (name) {
+	// 		const regex = new RegExp(name, 'gi')
+	// 		robots = robots.filter(robot => regex.test(robot.name))
+	// 	}
+
+	// 	if (labels?.length) robots = robots.filter(robot => {
+	// 		//this is an OR filtering (at least one label)
+	// 		for (let i = 0; i < robot.labels.length; i++) {
+	// 			if (labels.includes(robot.labels[i])) return true
+	// 		}
+
+	// 		return false
+
+	// 		//this is an AND filtering (all labels)
+	// 		// for (let i = 0; i < labels.length; i++) {
+	// 		// 	if (!robot.labels.includes(labels[i])) return false
+	// 		// }
+
+	// 		// return true
+	// 	})
+
+	// 	if (inStock !== undefined && inStock !== 'all') robots = robots.filter(robot => robot.inStock === inStock)
+
+	// 	if (sortBy) robots = robots.sort((a, b) => {
+	// 		if (sortBy === 'name') return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+	// 		return a[sortBy] - b[sortBy]
+	// 	})
+	// }
+
+	// return robots
 }
 
 async function getById(robotId) {
-	const robot = await storageService.get(STORAGE_KEY, robotId)
-	return robot
+	return await storageService.get(STORAGE_KEY, robotId)
 }
 
 async function save(robot) {
@@ -694,7 +699,7 @@ async function save(robot) {
 		return await storageService.put(STORAGE_KEY, robot)
 	}
 
-	const updatedRobot = { ...robot, createdAt: Date.now() }
+	let updatedRobot = { ...robot, createdAt: Date.now() }
 	return await storageService.post(STORAGE_KEY, updatedRobot)
 }
 

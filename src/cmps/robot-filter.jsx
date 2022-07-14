@@ -51,9 +51,9 @@ export const RobotFilter = ({ onFilterBy }) => {
 
         <div className='sort-container'>
             <label htmlFor="">Sort: </label>
-            <button className={sortBy === 'name' ? 'active' : ''} name='name' onClick={onSortByChange}>Name</button>
-            <button className={sortBy === 'price' ? 'active' : ''} name='price' onClick={onSortByChange}>Price</button>
-            <button className={sortBy === 'createdAt' ? 'active' : ''} name='createdAt' onClick={onSortByChange}>Created Date</button>
+            <button type='button' className={sortBy === 'name' ? 'active' : ''} name='name' onClick={onSortByChange}>Name</button>
+            <button type='button' className={sortBy === 'price' ? 'active' : ''} name='price' onClick={onSortByChange}>Price</button>
+            <button type='button' className={sortBy === 'createdAt' ? 'active' : ''} name='createdAt' onClick={onSortByChange}>Created Date</button>
         </div>
 
         <button className='main-btn' type="submit">Search</button>
