@@ -33,6 +33,28 @@
         }
     }
 
+    .sort-container {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+
+        button {
+            height: 90%;
+            border: none;
+            background-color: darken($primary-clr-200, 5%);
+            border-radius: 6px;
+            
+            &:hover{
+                background-color: darken($primary-clr-200, 8%);
+            }
+
+            &.active{
+                background-color: darken($primary-clr-200, 15%)
+            }
+        }
+    }
+
     button[type='submit'] {
         align-self: stretch;
         padding: 0 1em;

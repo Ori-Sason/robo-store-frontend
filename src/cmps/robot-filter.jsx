@@ -4,6 +4,7 @@ import { robotService } from '../services/robot.service'
 export const RobotFilter = ({ onFilterBy }) => {
 
     const [filterBy, setFilterBy] = useState(null)
+    const [sortBy, setSortBy] = useState(null)
     const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false)
 
     const onInputChange = ({ target: { name, value, selectedOptions } }) => {
@@ -12,9 +13,15 @@ export const RobotFilter = ({ onFilterBy }) => {
         setFilterBy({ ...filterBy, [name]: value })
     }
 
+    const onSortByChange = ({ target: { name } }) => {
+        if (sortBy === name) return setSortBy(null)
+        setSortBy(name)
+    }
+
     const onSubmit = (ev) => {
         ev.preventDefault()
-        onFilterBy(filterBy)
+        const updatedFilterBy = { ...filterBy, sortBy }
+        onFilterBy(updatedFilterBy)
     }
 
     const labels = useMemo(() => robotService.getLabels(), [])
@@ -38,6 +45,13 @@ export const RobotFilter = ({ onFilterBy }) => {
             {isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labels.length}>
                 {labels.map(label => <option key={label}>{label}</option>)}
             </select>}
+        </div>
+
+        <div className='sort-container'>
+            <label htmlFor="">Sort: </label>
+            <button className={sortBy === 'name' ? 'active' : ''} name='name' onClick={onSortByChange}>Name</button>
+            <button className={sortBy === 'price' ? 'active' : ''} name='price' onClick={onSortByChange}>Price</button>
+            <button className={sortBy === 'createdAt' ? 'active' : ''} name='createdAt' onClick={onSortByChange}>Created Date</button>
         </div>
 
         <button type="submit">Search</button>

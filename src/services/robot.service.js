@@ -647,7 +647,7 @@ async function query(filterBy) {
 	let robots = await storageService.query(STORAGE_KEY)
 
 	if (filterBy) {
-		const { name, labels, inStock } = filterBy
+		const { name, labels, inStock, sortBy } = filterBy
 
 		if (name) {
 			const regex = new RegExp(name, 'gi')
@@ -671,6 +671,11 @@ async function query(filterBy) {
 		})
 
 		if (inStock !== undefined) robots = robots.filter(robot => robot.inStock === inStock)
+
+		if (sortBy) robots = robots.sort((a, b) => {
+			if (sortBy === 'name') return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+			return a[sortBy] - b[sortBy]
+		})
 	}
 
 	return robots
