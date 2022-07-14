@@ -695,7 +695,7 @@ async function save(robot) {
 	}
 
 	const updatedRobot = { ...robot, createdAt: Date.now() }
-	return await storageService.post(storageService, updatedRobot)
+	return await storageService.post(STORAGE_KEY, updatedRobot)
 }
 
 async function remove(robotId) {

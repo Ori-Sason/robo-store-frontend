@@ -41,6 +41,21 @@
     }
 }
 
+/* BUTTONS */
+.main-btn {
+    align-self: stretch;
+    padding: 0 1em;
+    color: $primary-clr-100;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 0 5px $primary-clr-900;
+    background-color: $primary-clr-500;
+
+    &:hover {
+        background-color: darken($primary-clr-500, 5%);
+    }
+}
+
 /* FONT AWESOME */
 
 .fa-solid {

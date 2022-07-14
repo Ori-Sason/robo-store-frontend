@@ -54,6 +54,6 @@ export const RobotFilter = ({ onFilterBy }) => {
             <button className={sortBy === 'createdAt' ? 'active' : ''} name='createdAt' onClick={onSortByChange}>Created Date</button>
         </div>
 
-        <button type="submit">Search</button>
+        <button className='main-btn' type="submit">Search</button>
     </form>
 }

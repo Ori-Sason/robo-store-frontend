@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { robotService } from '../services/robot.service'
 
+import defaultRobotImg from '../assets/img/default-robot.png'
 import outOfStockImg from '../assets/img/out-of-stock.png'
 import { utilService } from '../services/util.service'
+import { removeRobot } from '../store/actions/robot.action'
 
 export const RobotDetails = () => {
 
     const params = useParams()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [robot, setRobot] = useState(null)
 
     useEffect(() => {
@@ -16,7 +21,16 @@ export const RobotDetails = () => {
 
     const loadRobot = async (robotId) => {
         const robot = await robotService.getById(robotId)
+        if (!robot) {
+            navigate('/')
+            /* FIX - add msg 'robot was not found' */
+        }
         setRobot(robot)
+    }
+
+    const onDeleteRobot = (robotId) => {
+        dispatch(removeRobot(robotId))
+        navigate('/')
     }
 
     if (!robot) return 'Loading'
@@ -24,11 +38,16 @@ export const RobotDetails = () => {
     return <section className="robot-details main-layout">
         <h2 className='name page-header'>{robot.name}</h2>
         <div className='img-container'>
-            <img className='img' src={robot.img} alt={robot.name} />
+            <img className='img' src={robot.img || defaultRobotImg} alt={robot.name} onError={({ target }) => target.src = defaultRobotImg}/>
             {!robot.inStock && <img className='out-of-stock' src={outOfStockImg} alt="out of stock" />}
         </div>
         <p className='labels'><strong>Labels:</strong> {robot.labels.join(', ')}</p>
         <p className='date'><strong>Creation Date:</strong> {utilService.dateToString(robot.createdAt)}</p>
         <p className='price'><strong>Price:</strong> ${utilService.numberWithCommas(robot.price)}</p>
+
+        <div className='buttons-container'>
+            <Link to={`/robots/edit/${robot._id}`}>Edit</Link>
+            <button onClick={() => onDeleteRobot(robot._id)}>Delete</button>
+        </div>
     </section>
 }
