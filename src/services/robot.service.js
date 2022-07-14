@@ -4,6 +4,8 @@ import { utilService } from './util.service'
 export const robotService = {
 	query,
 	getById,
+	save,
+	remove,
 	getEmptyRobot,
 	getLabels,
 }
@@ -687,7 +689,20 @@ async function getById(robotId) {
 	return robot
 }
 
-function getEmptyRobot(){
+async function save(robot) {
+	if (robot._id) {
+		return await storageService.put(STORAGE_KEY, robot)
+	}
+
+	const updatedRobot = { ...robot, createdAt: Date.now() }
+	return await storageService.post(storageService, updatedRobot)
+}
+
+async function remove(robotId) {
+	return await storageService.remove(STORAGE_KEY, robotId)
+}
+
+function getEmptyRobot() {
 	return {
 		name: '',
 		price: 0,

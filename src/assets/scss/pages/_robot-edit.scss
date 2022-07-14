@@ -4,21 +4,37 @@
         margin-bottom: 0.5em;
     }
 
-    &>ul {
+    &>form>ul {
+        max-width: 450px;
         margin-bottom: 2em;
 
         &>* {
             margin-bottom: 0.7em;
         }
-    }
 
-    input[type='text'],
-    input[type='url'] {
-        width: 400px;
-    }
+        .edit-name-container,
+        .edit-img-container>div {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
 
-    .edit-labels-container {
-        display: flex;
+            input {
+                flex-grow: 1;
+            }
+        }
+
+        .edit-img-container {
+            text-align: center;
+            margin-bottom: unset;
+
+            &>img {
+                max-width: 12.5rem;
+            }
+        }
+
+        .edit-labels-container {
+            display: flex;
+        }
     }
 
     button[type='submit'] {
