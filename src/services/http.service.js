@@ -11,13 +11,22 @@ let axios = Axios.create({
 export const httpService = {
     get(endpoint, data, isFullUrl) {
         return ajax(endpoint, 'GET', data, isFullUrl)
-    }
+    },
+    post(endpoint, data, isFullUrl) {
+        return ajax(endpoint, 'POST', data, isFullUrl)
+    },
+    put(endpoint, data, isFullUrl) {
+        return ajax(endpoint, 'PUT', data, isFullUrl)
+    },
+    delete(endpoint, data, isFullUrl) {
+        return ajax(endpoint, 'DELETE', data, isFullUrl)
+    },
 }
 
 async function ajax(endpoint, method = 'GET', data = null, isFullUrl = false) {
     try {
         const res = await axios({
-            url: isFullUrl ? endpoint: `${BASE_URL}${endpoint}`,
+            url: isFullUrl ? endpoint : `${BASE_URL}${endpoint}`,
             method,
             data,
             params: (method === 'GET') ? data : null

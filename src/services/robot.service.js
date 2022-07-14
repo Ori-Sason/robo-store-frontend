@@ -691,20 +691,30 @@ async function query(filterBy) {
 }
 
 async function getById(robotId) {
-	return await storageService.get(STORAGE_KEY, robotId)
+	return await httpService.get(`${BASE_PATH}/${robotId}`)
+	/* LOCAL STORAGE */
+	// return await storageService.get(STORAGE_KEY, robotId)
 }
 
 async function save(robot) {
-	if (robot._id) {
-		return await storageService.put(STORAGE_KEY, robot)
-	}
+	if (robot._id) return await httpService.put(BASE_PATH, robot)
 
-	let updatedRobot = { ...robot, createdAt: Date.now() }
-	return await storageService.post(STORAGE_KEY, updatedRobot)
+	return await httpService.post(BASE_PATH, robot)
+
+	/* LOCAL STORAGE */
+	// if (robot._id) {
+	// 	return await storageService.put(STORAGE_KEY, robot)
+	// }
+
+	// let updatedRobot = { ...robot, createdAt: Date.now() }
+	// return await storageService.post(STORAGE_KEY, updatedRobot)
 }
 
 async function remove(robotId) {
-	return await storageService.remove(STORAGE_KEY, robotId)
+	return await httpService.delete(`${BASE_PATH}/${robotId}`)
+
+	/* LOCAL STORAGE */
+	// return await storageService.remove(STORAGE_KEY, robotId)
 }
 
 function getEmptyRobot() {
@@ -717,6 +727,7 @@ function getEmptyRobot() {
 	}
 }
 
-function getLabels() {
-	return gLabels.sort()
+async function getLabels() {
+	return await httpService.get(`${BASE_PATH}/labels`)
+	// return gLabels.sort()
 }
