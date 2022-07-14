@@ -15,10 +15,12 @@ export const Home = () => {
         dispatch(loadRobots())
     }, [])
 
-    if (!robots?.length) return 'Loading'
+    const onFilterBy = (filterBy) => {
+        dispatch(loadRobots(filterBy))
+    }
 
     return <section className="home-page main-layout">
-        <RobotFilter />
-        <RobotList robots={robots} />
+        <RobotFilter onFilterBy={onFilterBy} />
+        {robots?.length > 0 && <RobotList robots={robots} />}
     </section>
 }

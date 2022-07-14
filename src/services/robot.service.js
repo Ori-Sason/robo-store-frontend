@@ -624,9 +624,12 @@ async function createRoboDbOnLocalStorage() {
 				const id = utilService.makeId(16)
 
 				const labels = []
+				const totalLabels = [...gLabels]
 				const numOfLabels = utilService.getRandomIntInclusive(1, 4)
 				for (let i = 0; i < numOfLabels; i++) {
-					labels.push(gLabels[i])
+					const idx = utilService.getRandomIntInclusive(0, totalLabels.length - 1)
+					labels.push(totalLabels[idx])
+					totalLabels.splice(idx, 1)
 				}
 
 				return {
@@ -640,8 +643,36 @@ async function createRoboDbOnLocalStorage() {
 	}
 }
 
-async function query() {
-	const robots = await storageService.query(STORAGE_KEY)
+async function query(filterBy) {
+	let robots = await storageService.query(STORAGE_KEY)
+
+	if (filterBy) {
+		const { name, labels, inStock } = filterBy
+
+		if (name) {
+			const regex = new RegExp(name, 'gi')
+			robots = robots.filter(robot => regex.test(robot.name))
+		}
+
+		if (labels?.length) robots = robots.filter(robot => {
+			//this is an OR filtering (at least one label)
+			for (let i = 0; i < robot.labels.length; i++) {
+				if (labels.includes(robot.labels[i])) return true
+			}
+
+			return false
+
+			//this is an AND filtering (all labels)
+			// for (let i = 0; i < labels.length; i++) {
+			// 	if (!robot.labels.includes(labels[i])) return false
+			// }
+
+			// return true
+		})
+
+		if (inStock !== undefined) robots = robots.filter(robot => robot.inStock === inStock)
+	}
+
 	return robots
 }
 
