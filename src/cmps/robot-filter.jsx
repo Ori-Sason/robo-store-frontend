@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useRef, useState } from 'react'
 import { robotService } from '../services/robot.service'
 
 export const RobotFilter = ({ onFilterBy }) => {
@@ -24,7 +24,7 @@ export const RobotFilter = ({ onFilterBy }) => {
         onFilterBy(updatedFilterBy)
     }
 
-    const labels = useMemo(() => robotService.getLabels(), [])
+    const labels = useRef(robotService.getLabels())
 
     return <form className="robot-filter" onSubmit={onSubmit}>
         <input type="text" name="name" id="" placeholder='Robot name' value={filterBy?.name || ''} onChange={onInputChange} />
@@ -42,8 +42,8 @@ export const RobotFilter = ({ onFilterBy }) => {
             <span onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}>
                 <input type="text" value={filterBy?.labels?.join(', ') || ''} disabled />
             </span>
-            {isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labels.length}>
-                {labels.map(label => <option key={label}>{label}</option>)}
+            {isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labels.current.length}>
+                {labels.current.map(label => <option key={label}>{label}</option>)}
             </select>}
         </div>
 

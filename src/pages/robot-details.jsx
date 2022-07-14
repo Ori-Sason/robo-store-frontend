@@ -27,10 +27,8 @@ export const RobotDetails = () => {
             <img className='img' src={robot.img} alt={robot.name} />
             {!robot.inStock && <img className='out-of-stock' src={outOfStockImg} alt="out of stock" />}
         </div>
-        <div className='details'>
-            <p className='labels'><strong>Labels:</strong> {robot.labels.join(', ')}</p>
-            <p className='date'><strong>Creation Date:</strong> {utilService.dateToString(robot.createdAt)}</p>
-            <p className='price'><strong>Price:</strong> ${utilService.numberWithCommas(robot.price)}</p>
-        </div>
+        <p className='labels'><strong>Labels:</strong> {robot.labels.join(', ')}</p>
+        <p className='date'><strong>Creation Date:</strong> {utilService.dateToString(robot.createdAt)}</p>
+        <p className='price'><strong>Price:</strong> ${utilService.numberWithCommas(robot.price)}</p>
     </section>
 }
