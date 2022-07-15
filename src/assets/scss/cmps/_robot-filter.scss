@@ -1,11 +1,13 @@
 .robot-filter {
     margin-bottom: 1em;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 1em;
 
     input[name='name'] {
+        min-width: 250px;
         flex-grow: 1;
     }
 

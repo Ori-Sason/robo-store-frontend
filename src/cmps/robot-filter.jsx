@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { robotService } from '../services/robot.service'
 
 export const RobotFilter = ({ filterBy, onSetFilterBy }) => {
@@ -8,7 +8,7 @@ export const RobotFilter = ({ filterBy, onSetFilterBy }) => {
     const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false)
     const [labels, setLabels] = useState(null)
 
-    useMemo(() => {
+    useEffect(() => {
         ; (async function () {
             const labels = await robotService.getLabels()
             setLabels(labels)

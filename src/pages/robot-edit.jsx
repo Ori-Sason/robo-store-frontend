@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { robotService } from '../services/robot.service'
@@ -15,7 +15,7 @@ export const RobotEdit = () => {
     const [robot, setRobot] = useState(robotService.getEmptyRobot())
     const [labels, setLabels] = useState(null)
 
-    useMemo(() => {
+    useEffect(() => {
         ; (async function () {
             const labels = await robotService.getLabels()
             setLabels(labels)
@@ -25,7 +25,6 @@ export const RobotEdit = () => {
     useEffect(() => {
         if (params.id) (async function () {
             const robot = await robotService.getById(params.id)
-            console.log('paramsId',)
             setRobot(robot)
         })();
     }, [params.id])
