@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { robotService } from '../services/robot.service'
@@ -13,10 +13,19 @@ export const RobotEdit = () => {
     const dispatch = useDispatch()
 
     const [robot, setRobot] = useState(robotService.getEmptyRobot())
+    const [labels, setLabels] = useState(null)
+
+    useMemo(() => {
+        ; (async function () {
+            const labels = await robotService.getLabels()
+            setLabels(labels)
+        })()
+    }, [])
 
     useEffect(() => {
         if (params.id) (async function () {
             const robot = await robotService.getById(params.id)
+            console.log('paramsId',)
             setRobot(robot)
         })();
     }, [params.id])
@@ -43,8 +52,6 @@ export const RobotEdit = () => {
         navigate(`/`)
     }
 
-    const labels = useRef(robotService.getLabels())
-
     return <section className="robot-edit main-layout">
         <h2 className='page-header'>Edit</h2>
         <form onSubmit={onSubmit}>
@@ -65,19 +72,21 @@ export const RobotEdit = () => {
                     <input type="number" min={1} name='price' id='edit-price' onChange={onChangeInput} value={robot.price} />
                 </li>
                 <li className='edit-labels-container'>
-                    <label htmlFor={labels.current[0]}>Labels: </label>
-                    <ul className='clean-list'>
-                        {labels.current.map(label => <li key={label}>
-                            <input type="checkbox" name='labels' id={label} onChange={onChangeInput} value={label} checked={robot.labels.includes(label)} />
-                            <label htmlFor={label}>{label}</label>
-                        </li>)}
-                    </ul>
+                    {labels && <>
+                        <label htmlFor={labels[0] || ''}>Labels: </label>
+                        <ul className='clean-list'>
+                            {labels.map(label => <li key={label}>
+                                <input type="checkbox" name='labels' id={label} onChange={onChangeInput} value={label} checked={robot.labels.includes(label)} />
+                                <label htmlFor={label}>{label}</label>
+                            </li>)}
+                        </ul>
+                    </>}
                 </li>
                 <li>
                     <label htmlFor="filter-in-stock-yes">In stock: </label>
-                    <input type="radio" name="inStock" id="edit-in-stock-yes" value={true} onChange={onChangeInput} checked={robot.inStock}/>
+                    <input type="radio" name="inStock" id="edit-in-stock-yes" value={true} onChange={onChangeInput} checked={robot.inStock} />
                     <label htmlFor="edit-in-stock-yes">Yes</label>
-                    <input type="radio" name="inStock" id="edit-in-stock-no" value={false} onChange={onChangeInput} checked={!robot.inStock}/>
+                    <input type="radio" name="inStock" id="edit-in-stock-no" value={false} onChange={onChangeInput} checked={!robot.inStock} />
                     <label htmlFor="edit-in-stock-no">No</label>
                 </li>
             </ul>

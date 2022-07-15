@@ -6,12 +6,12 @@ export const RobotFilter = ({ filterBy, onSetFilterBy }) => {
     const [tempFilterBy, setTempFilterBy] = useState({ ...filterBy })
     const [sortBy, setSortBy] = useState(null)
     const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false)
-    const labelsRef = useRef(null)
+    const [labels, setLabels] = useState(null)
 
-    useEffect(() => {
+    useMemo(() => {
         ; (async function () {
             const labels = await robotService.getLabels()
-            labelsRef.current = labels
+            setLabels(labels)
         })()
     }, [])
 
@@ -50,8 +50,8 @@ export const RobotFilter = ({ filterBy, onSetFilterBy }) => {
             <span onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}>
                 <input type="text" value={tempFilterBy?.labels?.join(', ') || ''} disabled />
             </span>
-            {labelsRef.current && isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labelsRef.current.length}>
-                {labelsRef.current.map(label => <option key={label}>{label}</option>)}
+            {labels && isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labels.length}>
+                {labels.map(label => <option key={label}>{label}</option>)}
             </select>}
         </div>
 
