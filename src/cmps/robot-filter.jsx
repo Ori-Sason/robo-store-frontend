@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { robotService } from '../services/robot.service'
 
-export const RobotFilter = ({ onFilterBy }) => {
+export const RobotFilter = ({ filterBy, setFilterBy }) => {
 
-    const [filterBy, setFilterBy] = useState(null)
+    const [tempFilterBy, setTempFilterBy] = useState({ ...filterBy })
     const [sortBy, setSortBy] = useState(null)
     const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false)
     const labelsRef = useRef(null)
 
     useEffect(() => {
-        ;(async function () {
+        ; (async function () {
             const labels = await robotService.getLabels()
             labelsRef.current = labels
         })()
@@ -18,7 +18,7 @@ export const RobotFilter = ({ onFilterBy }) => {
     const onInputChange = ({ target: { name, value, selectedOptions } }) => {
         if (name === 'labels') value = Array.from(selectedOptions).map(option => option.value)
         else if (name === 'inStock') value = value === 'all' ? 'all' : value === 'true'
-        setFilterBy({ ...filterBy, [name]: value })
+        setTempFilterBy({ ...tempFilterBy, [name]: value })
     }
 
     const onSortByChange = ({ target: { name } }) => {
@@ -28,12 +28,12 @@ export const RobotFilter = ({ onFilterBy }) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault()
-        const updatedFilterBy = { ...filterBy, sortBy }
-        onFilterBy(updatedFilterBy)
+        const updatedFilterBy = { ...tempFilterBy, sortBy }
+        setFilterBy(updatedFilterBy)
     }
 
     return <form className="robot-filter" onSubmit={onSubmit}>
-        <input type="text" name="name" id="" placeholder='Robot name' value={filterBy?.name || ''} onChange={onInputChange} />
+        <input type="text" name="name" id="" placeholder='Robot name' value={tempFilterBy?.name || ''} onChange={onInputChange} />
 
         <div className='in-stock'>
             <label htmlFor="">In Stock: </label>
@@ -48,7 +48,7 @@ export const RobotFilter = ({ onFilterBy }) => {
         <div className='labels-container'>
             <label htmlFor="filter-labels">Labels: </label>
             <span onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}>
-                <input type="text" value={filterBy?.labels?.join(', ') || ''} disabled />
+                <input type="text" value={tempFilterBy?.labels?.join(', ') || ''} disabled />
             </span>
             {labelsRef.current && isSelectMenuOpen && <select className="labels-select" name="labels" id="filter-labels" multiple onChange={onInputChange} size={labelsRef.current.length}>
                 {labelsRef.current.map(label => <option key={label}>{label}</option>)}
