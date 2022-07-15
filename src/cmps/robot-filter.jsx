@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { robotService } from '../services/robot.service'
 
-export const RobotFilter = ({ filterBy, setFilterBy }) => {
+export const RobotFilter = ({ filterBy, onSetFilterBy }) => {
 
     const [tempFilterBy, setTempFilterBy] = useState({ ...filterBy })
     const [sortBy, setSortBy] = useState(null)
@@ -28,8 +28,8 @@ export const RobotFilter = ({ filterBy, setFilterBy }) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault()
-        const updatedFilterBy = { ...tempFilterBy, sortBy }
-        setFilterBy(updatedFilterBy)
+        const updatedFilterBy = { ...tempFilterBy, sortBy, pageIdx: 0 }
+        onSetFilterBy(updatedFilterBy)
     }
 
     return <form className="robot-filter" onSubmit={onSubmit}>
@@ -57,9 +57,9 @@ export const RobotFilter = ({ filterBy, setFilterBy }) => {
 
         <div className='sort-container'>
             <label htmlFor="">Sort: </label>
-            <button type='button' className={sortBy === 'name' ? 'active' : ''} name='name' onClick={onSortByChange}>Name</button>
-            <button type='button' className={sortBy === 'price' ? 'active' : ''} name='price' onClick={onSortByChange}>Price</button>
-            <button type='button' className={sortBy === 'createdAt' ? 'active' : ''} name='createdAt' onClick={onSortByChange}>Created Date</button>
+            <button type='button' className={`sub-btn ${sortBy === 'name' ? 'active' : ''}`} name='name' onClick={onSortByChange}>Name</button>
+            <button type='button' className={`sub-btn ${sortBy === 'price' ? 'active' : ''}`} name='price' onClick={onSortByChange}>Price</button>
+            <button type='button' className={`sub-btn ${sortBy === 'createdAt' ? 'active' : ''}`} name='createdAt' onClick={onSortByChange}>Created Date</button>
         </div>
 
         <button className='main-btn' type="submit">Search</button>

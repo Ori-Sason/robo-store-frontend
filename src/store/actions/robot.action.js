@@ -1,10 +1,11 @@
 import { robotService } from '../../services/robot.service'
 
-export function loadRobots(filterBy) {
+export function loadRobots(currFilterBy) {
     return async dispatch => {
         try {
-            const robots = await robotService.query(filterBy)
+            const { robots, filterBy } = await robotService.query(currFilterBy)
             dispatch({ type: 'SET_ROBOTS', robots })
+            dispatch({ type: 'SET_FILTERBY', filterBy })
         } catch (err) {
             console.error('Error:', err)
             /* FIX - add user msg */

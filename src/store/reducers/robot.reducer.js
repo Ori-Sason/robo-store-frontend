@@ -1,5 +1,6 @@
 const initialState = {
-    robots: []
+    robots: [],
+    filterBy: { pageIdx: 0, numOfPages: 0 }
 }
 
 export function robotReducer(state = initialState, action) {
@@ -20,6 +21,8 @@ export function robotReducer(state = initialState, action) {
             robots = state.robots.filter(robot => robot._id !== action.robotId)
             console.log('REMOVE_ROBOT', robots.length)
             return { ...state, robots }
+        case 'SET_FILTERBY':
+            return { ...state, filterBy: action.filterBy }
         default:
             return state
     }
