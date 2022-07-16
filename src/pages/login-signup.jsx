@@ -138,7 +138,7 @@ export function LoginSignUp() {
                                     id="username"
                                     label="Username"
                                     name="username"
-                                    // autoComplete="username"
+                                    autoComplete="new-username"
                                     inputProps={{ minLength: 3 }}
                                     inputRef={usernameInputRef}
                                 />
@@ -151,8 +151,8 @@ export function LoginSignUp() {
                                     label="Password"
                                     type="password"
                                     id="password"
-                                    // autoComplete="password"
-                                    inputProps={{ minLength: 3, form:{ autoComplete: 'off'} }}
+                                    autoComplete="new-password"
+                                    inputProps={{ minLength: 3}}
                                     inputRef={passwordInputRef}
                                 />
                             </Grid>

@@ -4,13 +4,20 @@ const BASE_PATH = 'auth/'
 const STORAGE_KEY_LOGGIN = 'robots_loggedInUser'
 
 export const userService = {
+    getLoggedInUser,
     login,
     signup,
     logout,
 }
 
+function getLoggedInUser(){
+    const user = localStorage.getItem('loginToken',)
+    console.log('user', user)
+}
+
 async function login(credentials, isRemember) {
     try {
+        console.log('credentials', credentials)
         const user = await httpService.post(BASE_PATH + 'login', credentials)
         _rememberUserAndSignToSocket(user, isRemember)
         return user
