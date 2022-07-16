@@ -11,13 +11,12 @@ export const userService = {
 }
 
 function getLoggedInUser(){
-    const user = localStorage.getItem('loginToken',)
-    console.log('user', user)
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGIN))
+    return user
 }
 
 async function login(credentials, isRemember) {
     try {
-        console.log('credentials', credentials)
         const user = await httpService.post(BASE_PATH + 'login', credentials)
         _rememberUserAndSignToSocket(user, isRemember)
         return user

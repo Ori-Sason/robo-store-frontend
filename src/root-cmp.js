@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { AppHeader } from './cmps/app-header';
 import { Home } from './pages/home';
