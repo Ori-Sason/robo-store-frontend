@@ -14,7 +14,7 @@ export const Home = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadRobots(filterBy))
+        dispatch(loadRobots({ pageIdx: 0, numOfPages: 0 }))
     }, [])
 
     const onSetFilterBy = (currFilterBy) => {

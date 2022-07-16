@@ -23,8 +23,7 @@ export const UserProfile = () => {
             setUser(user)
             if (!user) return
             /* FIX - if no user - use msg and redirect to home */
-            dispatch(loadRobots({ owner: { _id: user._id }, pageIdx: 0 }))
-            console.log('GOT HERE',)
+            dispatch(loadRobots({ owner: { _id: user._id }, pageIdx: 0, numOfPages: 0 }))
         })()
     }, [params.id])
 
@@ -46,7 +45,17 @@ export const UserProfile = () => {
                 {filterBy.numOfPages > 1 && < PageBar filterBy={filterBy} onSetFilterBy={onChangePage} />}
                 <RobotList robots={robots} />
             </>}
-            {!robots?.length && <p>The user didn't add robots yet</p>}
+            {!robots?.length && <p>The user didn't add robots yet.</p>}
+        </section>
+        <section className='reviews'>
+            <h2 className='sub-header'>Reviews</h2>
+            {/* FIX -  */}
+            {/* {robots?.length && <>
+                {filterBy.numOfPages > 1 && < PageBar filterBy={filterBy} onSetFilterBy={onChangePage} />}
+                <RobotList robots={robots} />
+            </>} */}
+            {/* {!robots?.length && <p>The user didn't add robots yet</p>} */}
+            <p>The user didn't write reviews yet.</p>
         </section>
     </section>
 }

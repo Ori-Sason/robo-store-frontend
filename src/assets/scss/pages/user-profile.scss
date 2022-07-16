@@ -12,9 +12,14 @@
         }
     }
 
-    &>.robots {
+    &>.robots,
+    &>.reviews {
         display: flex;
         flex-direction: column;
         gap: 1em;
+
+        &.robots{
+            margin-bottom: 2em;
+        }
     }
 }
