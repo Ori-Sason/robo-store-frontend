@@ -28,7 +28,7 @@ async function signup(credentials, isRemember) {
 async function logout() {
     localStorage.removeItem(STORAGE_KEY_LOGGIN)
     /* FIX - socketService */
-    return await httpService.post(BASE_PATH + 'signup')
+    return await httpService.post(BASE_PATH + 'logout')
 }
 
 function _rememberUserAndSignToSocket(user, isRemember) {
