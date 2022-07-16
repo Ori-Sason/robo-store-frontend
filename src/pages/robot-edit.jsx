@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { robotService } from '../services/robot.service'
 
@@ -14,6 +15,7 @@ export const RobotEdit = () => {
 
     const [robot, setRobot] = useState(robotService.getEmptyRobot())
     const [labels, setLabels] = useState(null)
+    const user = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         ; (async function () {
@@ -28,6 +30,12 @@ export const RobotEdit = () => {
             setRobot(robot)
         })();
     }, [params.id])
+
+    useEffect(() => {
+        if (!user) return navigate('/')
+        //user is not admin, robot is not new, and the robot owner is not the user => return
+        if (!user.isAdmin && robot._id && robot.owner._id !== user._id) return navigate('/')
+    }, [robot, user, navigate])
 
     const onChangeInput = ({ target: { name, value } }) => {
         if (name === 'labels') {
@@ -50,6 +58,8 @@ export const RobotEdit = () => {
         dispatch(saveRobot(robot))
         navigate(`/`)
     }
+
+    if (!user) return <></>
 
     return <section className="robot-edit main-layout">
         <h2 className='page-header'>Edit</h2>
