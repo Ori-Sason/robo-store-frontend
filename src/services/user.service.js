@@ -5,19 +5,23 @@ const STORAGE_KEY_LOGGIN = 'robots_loggedInUser'
 
 export const userService = {
     login,
-    signin,
+    signup,
     logout,
 }
 
-async function login(credentials) {
-    const user = await httpService.post(BASE_PATH + 'login', credentials)
-    _rememberUserAndSignToSocket(user)
-    return user
+async function login(credentials, isRemember) {
+    try {
+        const user = await httpService.post(BASE_PATH + 'login', credentials)
+        _rememberUserAndSignToSocket(user, isRemember)
+        return user
+    } catch (err) {
+        throw err
+    }
 }
 
-async function signin(credentials) {
-    const user = await httpService.put(BASE_PATH + 'signup', credentials)
-    _rememberUserAndSignToSocket(user)
+async function signup(credentials, isRemember) {
+    const user = await httpService.post(BASE_PATH + 'signup', credentials)
+    _rememberUserAndSignToSocket(user, isRemember)
     return user
 }
 
@@ -27,9 +31,9 @@ async function logout() {
     return await httpService.post(BASE_PATH + 'signup')
 }
 
-function _rememberUserAndSignToSocket(user) {
+function _rememberUserAndSignToSocket(user, isRemember) {
     if (user) {
         /* FIX - socket service */
-        if (user.remember) localStorage.setItem(STORAGE_KEY_LOGGIN, JSON.stringify(user))
+        if (isRemember) localStorage.setItem(STORAGE_KEY_LOGGIN, JSON.stringify(user))
     }
 }

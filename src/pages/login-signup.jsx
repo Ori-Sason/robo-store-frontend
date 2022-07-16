@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,37 +13,62 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { login, signup } from '../store/actions/user.action';
+import { userService } from '../services/user.service';
 
 const theme = createTheme();
 
-export default function LoginSignUp() {
+export function LoginSignUp() {
 
     const location = useLocation()
+    const dispatch = useDispatch()
+    const usernameInputRef = useRef()
+    const passwordInputRef = useRef()
+
     const [isLogin, setIsLogin] = useState(true)
+    const [errorMsg, setErrorMsg] = useState('')
 
     useEffect(() => {
         setIsLogin(location.pathname === '/login')
     }, [location])
 
-    const onSubmit = (ev) => {
+    const onSubmit = async (ev) => {
+
+        const resetEmailAndPassword = () => {
+            usernameInputRef.current.value = ''
+            usernameInputRef.current.focus()
+            passwordInputRef.current.value = ''
+        }
+
         ev.preventDefault()
         const data = new FormData(ev.currentTarget);
         const user = {
-            email: data.get('email'),
+            username: data.get('username'),
             password: data.get('password'),
-            remember: data.get('remember'),
         }
+        const isRemember = !!data.get('remember')
 
         if (isLogin) {
-            //dispatch login
+            try {
+                const loggedInUser = await userService.login(user, isRemember)
+                dispatch(login(loggedInUser, false))
+            } catch (err) {
+                if (err.response?.status === 401) {
+                    setErrorMsg(true)
+                    resetEmailAndPassword()
+                    return
+                }
+                else console.log(err)
+            }
         } else {
-            user.firstName = data.get('firstName')
-            user.lastName = data.get('lastName')
-            //dispatch signup
+            user.fullname = `${data.get('firstName')} ${data.get('lastName')}`
+            dispatch(signup(user, isRemember))
         }
 
         //push to home page
     }
+
+
 
     return <section className='login-signup'>
         <ThemeProvider theme={theme}>
@@ -87,11 +113,12 @@ export default function LoginSignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
+                                    id="username"
+                                    label="Username"
+                                    name="username"
                                     autoComplete="email"
                                     inputProps={{ minLength: 3 }}
+                                    inputRef={usernameInputRef}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -104,8 +131,10 @@ export default function LoginSignUp() {
                                     id="password"
                                     autoComplete="new-password"
                                     inputProps={{ minLength: 3 }}
+                                    inputRef={passwordInputRef}
                                 />
                             </Grid>
+                            {isLogin && errorMsg && <p className='error-msg'>Wrong username or password</p>}
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value={true} color="primary" name="remember" />}
@@ -123,7 +152,7 @@ export default function LoginSignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href={isLogin ? '/#/signup' : '/#/login'} variant="body2" >
+                                <Link href={isLogin ? '/#/signup' : '/#/login'} variant="body2" onClick={() => setErrorMsg('')}>
                                     {isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Log In'}
                                 </Link>
                             </Grid>
