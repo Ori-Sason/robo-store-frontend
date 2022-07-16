@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -24,6 +24,7 @@ export function LoginSignUp() {
     const dispatch = useDispatch()
     const usernameInputRef = useRef()
     const passwordInputRef = useRef()
+    const navigate = useNavigate()
 
     const [isLogin, setIsLogin] = useState(true)
     const [errorMsg, setErrorMsg] = useState('')
@@ -54,18 +55,30 @@ export function LoginSignUp() {
                 dispatch(login(loggedInUser, false))
             } catch (err) {
                 if (err.response?.status === 401) {
-                    setErrorMsg(true)
+                    setErrorMsg('Wrong username or password')
                     resetEmailAndPassword()
-                    return
                 }
                 else console.log(err)
+
+                return
             }
         } else {
-            user.fullname = `${data.get('firstName')} ${data.get('lastName')}`
-            dispatch(signup(user, isRemember))
+            try {
+                user.fullname = `${data.get('firstName')} ${data.get('lastName')}`
+                const loggedInUser = await userService.signup(user, isRemember)
+                dispatch(signup(loggedInUser, false))
+            } catch (err) {
+                if (err.response?.status === 406) {
+                    setErrorMsg('Username already taken')
+                    resetEmailAndPassword()
+                }
+                else console.log(err)
+
+                return
+            }
         }
 
-        //push to home page
+        navigate('/')
     }
 
 
@@ -134,7 +147,7 @@ export function LoginSignUp() {
                                     inputRef={passwordInputRef}
                                 />
                             </Grid>
-                            {isLogin && errorMsg && <p className='error-msg'>Wrong username or password</p>}
+                            {errorMsg && <p className='error-msg'>{errorMsg}</p>}
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value={true} color="primary" name="remember" />}
