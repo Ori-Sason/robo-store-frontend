@@ -16,7 +16,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { login, signup } from '../store/actions/user.action';
 import { userService } from '../services/user.service';
 
-const theme = createTheme();
+let theme = createTheme({
+    palette: {
+        primary: {
+            main: '#540a8a', //vars: primary-clr-900
+        },
+        secondary: {
+            main: '#f5f5f5',  //vars: primary-clr-100
+        },
+    },
+});
 
 export function LoginSignUp() {
 
@@ -94,7 +103,7 @@ export function LoginSignUp() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+                    <Avatar sx={{ m: 1, bgcolor: 'rgb(84, 10, 138)' }} />
                     <Typography component="h1" variant="h5">{isLogin ? 'Login' : 'Sign up'}</Typography>
                     <Box component="form" onSubmit={onSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -108,6 +117,7 @@ export function LoginSignUp() {
                                         id="firstName"
                                         label="First Name"
                                         autoFocus
+                                        color='primary'
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -128,7 +138,7 @@ export function LoginSignUp() {
                                     id="username"
                                     label="Username"
                                     name="username"
-                                    autoComplete="email"
+                                    // autoComplete="username"
                                     inputProps={{ minLength: 3 }}
                                     inputRef={usernameInputRef}
                                 />
@@ -141,8 +151,8 @@ export function LoginSignUp() {
                                     label="Password"
                                     type="password"
                                     id="password"
-                                    autoComplete="new-password"
-                                    inputProps={{ minLength: 3 }}
+                                    // autoComplete="password"
+                                    inputProps={{ minLength: 3, form:{ autoComplete: 'off'} }}
                                     inputRef={passwordInputRef}
                                 />
                             </Grid>
@@ -158,13 +168,13 @@ export function LoginSignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 3, mb: 2, bgcolor: 'rgb(84, 10, 138)' }}
                         >
                             {isLogin ? 'Login' : 'Sign Up'}
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href={isLogin ? '/#/signup' : '/#/login'} variant="body2" onClick={() => setErrorMsg('')}>
+                                <Link className="login-mode-switch" href={isLogin ? '/#/signup' : '/#/login'} variant="body2" onClick={() => setErrorMsg('')}>
                                     {isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Log In'}
                                 </Link>
                             </Grid>

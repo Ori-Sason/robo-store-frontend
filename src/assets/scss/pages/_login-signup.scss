@@ -3,4 +3,13 @@
         margin: 1em auto;
         color: red;
     }
+
+    input {
+        color: black;
+        z-index: 1;
+    }
+
+    fieldset {
+        background-color: $primary-clr-100;
+    }
 }
