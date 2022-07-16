@@ -1,0 +1,20 @@
+.user-profile {
+    &>header {
+        margin-bottom: 1em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        .edit-btn {
+            margin-top: 10px;
+            margin-inline-start: 1rem;
+            max-height: 20px;
+        }
+    }
+
+    &>.robots {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

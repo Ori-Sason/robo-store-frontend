@@ -1,6 +1,7 @@
 import { httpService } from './http.service'
 
-const BASE_PATH = 'auth/'
+const AUTH_BASE_PATH = 'auth/'
+const USER_BASE_PATH = 'user/'
 const STORAGE_KEY_LOGGIN = 'robots_loggedInUser'
 
 export const userService = {
@@ -8,6 +9,7 @@ export const userService = {
     login,
     signup,
     logout,
+    getById,
 }
 
 function getLoggedInUser(){
@@ -17,7 +19,7 @@ function getLoggedInUser(){
 
 async function login(credentials, isRemember) {
     try {
-        const user = await httpService.post(BASE_PATH + 'login', credentials)
+        const user = await httpService.post(AUTH_BASE_PATH + 'login', credentials)
         _rememberUserAndSignToSocket(user, isRemember)
         return user
     } catch (err) {
@@ -26,7 +28,7 @@ async function login(credentials, isRemember) {
 }
 
 async function signup(credentials, isRemember) {
-    const user = await httpService.post(BASE_PATH + 'signup', credentials)
+    const user = await httpService.post(AUTH_BASE_PATH + 'signup', credentials)
     _rememberUserAndSignToSocket(user, isRemember)
     return user
 }
@@ -34,7 +36,12 @@ async function signup(credentials, isRemember) {
 async function logout() {
     localStorage.removeItem(STORAGE_KEY_LOGGIN)
     /* FIX - socketService */
-    return await httpService.post(BASE_PATH + 'logout')
+    return await httpService.post(AUTH_BASE_PATH + 'logout')
+}
+
+async function getById(userId){
+    const user = await httpService.get(USER_BASE_PATH + userId)
+    return user
 }
 
 function _rememberUserAndSignToSocket(user, isRemember) {

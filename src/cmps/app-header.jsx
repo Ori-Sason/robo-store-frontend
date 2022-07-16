@@ -38,7 +38,7 @@ export const AppHeader = () => {
                             <h2>Hi {user.fullname}</h2>
                         </header>}
                         <nav className='hamburger-nav'>
-                            {user && <NavLink to="/user-profile" exact="true" onClick={() => setIsMenuOpen(false)}>My Profile</NavLink>}
+                            {user && <NavLink to={`/users/${user._id}`} exact="true" onClick={() => setIsMenuOpen(false)}>My Profile</NavLink>}
                             {!user && <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Login</NavLink>}
                             <NavLink to="/" exact="true" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
                             <NavLink to="/" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>About</NavLink>

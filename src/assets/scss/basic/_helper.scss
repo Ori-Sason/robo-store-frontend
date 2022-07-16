@@ -16,6 +16,13 @@
     color: $primary-clr-900;
 }
 
+.sub-header {
+    font-family: Lobster;
+    font-size: 2rem;
+    color: $primary-clr-800;
+    text-decoration: underline;
+}
+
 /* FLEXBOX */
 .flex {
     display: flex;

@@ -9,6 +9,6 @@ export const UserImg = ({ user, linkOnAvatar, clickEv }) => {
 
     return <span className="user-img center-text" onClick={clickEv}>
         {user && <>{getUsernameLetter(user.fullname)}</>}
-        {!user && <Link to={linkOnAvatar}><Avatar /></Link>}
+        {!user && <Link to={linkOnAvatar || ''}><Avatar /></Link>}
     </span>
 }

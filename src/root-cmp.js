@@ -4,6 +4,7 @@ import { Home } from './pages/home';
 import { LoginSignUp } from './pages/login-signup';
 import { RobotDetails } from './pages/robot-details';
 import { RobotEdit } from './pages/robot-edit';
+import { UserProfile } from './pages/user-profile';
 
 export function App() {
   return <section className="app">
@@ -15,6 +16,7 @@ export function App() {
         <Route path='/robots/:id' element={<RobotDetails />} />
         <Route path='/robots/edit/:id' element={<RobotEdit />} />
         <Route path='/robots/edit/' element={<RobotEdit />} />
+        <Route path='/users/:id' element={<UserProfile />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </main>
