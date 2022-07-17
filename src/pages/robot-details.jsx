@@ -15,10 +15,13 @@ export const RobotDetails = () => {
     const navigate = useNavigate()
     const [robot, setRobot] = useState(null)
     const user = useSelector(storeState => storeState.userModule.user)
+    const { robots } = useSelector(storeState => storeState.robotModule)
 
     useEffect(() => {
         loadRobot(params.id)
-    }, [params])
+        /* Question - Here I force update when robots change since I move to this page from 'edit'. */
+        /* is there a better way? because im creating 2 requests by this way */
+    }, [params, robots])
 
     const loadRobot = async (robotId) => {
         const robot = await robotService.getById(robotId)

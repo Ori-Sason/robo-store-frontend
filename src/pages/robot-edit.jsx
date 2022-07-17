@@ -56,7 +56,6 @@ export const RobotEdit = () => {
         ev.preventDefault()
         if (!robot.labels.length) return /* FIX - user msg required */
         dispatch(saveRobot(robot))
-        navigate(`/`)
     }
 
     if (!user) return <></>
