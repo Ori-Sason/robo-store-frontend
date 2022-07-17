@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { QuestionModal } from '../cmps/question-modal'
 import { UserList } from '../cmps/user-list'
 import { loadUsers, removeUser, updateUser } from '../store/actions/user.action'
 
@@ -7,26 +8,31 @@ export const UserApp = () => {
 
     const dispatch = useDispatch()
     const users = useSelector(storeState => storeState.userModule.users)
+    const [questionModalOptions, setQuestionModalOptions] = useState(null)
 
     useEffect(() => {
         dispatch(loadUsers())
     }, [])
 
     const onToggleAdmin = (userId, isAdmin) => {
-        /* FIX - Are you sure modal */
         const user = { _id: userId, isAdmin: !isAdmin }
         dispatch(updateUser(user, true, true))
     }
 
     const onDeleteUser = (userId) => {
-        /* FIX - Are you sure modal */
         dispatch(removeUser(userId))
+    }
+
+    const openQuestionModal = (question, answers, cbFuncs) => {
+        setQuestionModalOptions({ question, answers, cbFuncs })
     }
 
     if (!users) return 'Loading...'
 
     return <section className="user-app main-layout">
         <h2 className='page-header'>Users</h2>
-        <UserList users={users} onToggleAdmin={onToggleAdmin} onDeleteUser={onDeleteUser} />
+        <UserList users={users} onToggleAdmin={onToggleAdmin} onDeleteUser={onDeleteUser} openQuestionModal={openQuestionModal} />
+        {questionModalOptions && <QuestionModal {...questionModalOptions} setModalFunc={setQuestionModalOptions} />}
+        {/* <QuestionModal question="Are you sure?" answers={['Cancel', 'Yes']} cbFuncs={[() => null, () => null]} /> */}
     </section>
 }
