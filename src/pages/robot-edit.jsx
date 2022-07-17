@@ -54,7 +54,10 @@ export const RobotEdit = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault()
-        if (!robot.labels.length) return /* FIX - user msg required */
+        if (!robot.labels.length) {
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'You have to choose at least 1 label' } }))
+            return
+        }
         dispatch(saveRobot(robot))
         navigate(`/robots/${robot._id}`)
     }

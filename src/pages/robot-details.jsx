@@ -27,7 +27,8 @@ export const RobotDetails = () => {
         const robot = await robotService.getById(robotId)
         if (!robot) {
             navigate('/robots')
-            /* FIX - add msg 'robot was not found' */
+            /* FIX - WE DONT GET TO HERE */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed loading robot. Check your link please' } }))
         }
         setRobot(robot)
     }

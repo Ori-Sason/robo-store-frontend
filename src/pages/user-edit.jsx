@@ -59,7 +59,7 @@ export const UserEdit = () => {
         } catch (err) {
             if (err.status === 401) return setIsWrongPassword(true)
             if (err.status === 403) {
-                /* FIX - add user msg for trying to edit anther user */
+                dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'You\'ve tried update another user. You have been logged!' } }))
                 navigate('/robots')
                 return
             }

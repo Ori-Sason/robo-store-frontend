@@ -15,7 +15,7 @@ export function login(credentials, isMakeHttpRequest = true, isRemember = false)
             return user
         } catch (err) {
             console.log('Error on login', err)
-            // dispatch(setUserMsg({ type: 'danger', txt: 'Failed login. Please try again later' }))
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed login. Please try again later' } }))
         }
     }
 }
@@ -31,7 +31,7 @@ export function signup(credentials, isMakeHttpRequest = true, isRemember = false
             return user
         } catch (err) {
             console.log('Error on sing in', err)
-            // dispatch(setUserMsg({ type: 'danger', txt: 'Failed sign in. Please try again later' }))
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed signup. Please try again later' } }))
         }
     }
 }
@@ -43,7 +43,7 @@ export function logout() {
             dispatch({ type: 'SET_USER', user: null })
         } catch (err) {
             console.log('Error on logout', err)
-            // dispatch(setUserMsg({ type: 'danger', txt: 'Failed logout. Please try again later' }))
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed logout. Please try again later' } }))
         }
     }
 }
@@ -55,7 +55,7 @@ export function loadUsers() {
             dispatch({ type: 'SET_USERS', users: users })
         } catch (err) {
             console.error('Error on loading users', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed loading users' } }))
         }
     }
 }
@@ -72,7 +72,7 @@ export function updateUser(user, isMakeHttpRequest = true, isSetAdmin = false) {
             dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'User updated successfully' } }))
         } catch (err) {
             console.error('Error on updating user', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed updating user' } }))
         }
     }
 }
@@ -82,10 +82,10 @@ export function removeUser(userId) {
         try {
             await userService.remove(userId)
             dispatch({ type: 'REMOVE_USER', userId })
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'User removed successfully' } }))
         } catch (err) {
             console.error('Error on loading users', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed removing user' } }))
         }
     }
 }

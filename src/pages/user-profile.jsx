@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UserImg } from '../cmps/user-img'
 import { userService } from '../services/user.service'
 
@@ -12,6 +12,7 @@ import { PageBar } from '../cmps/page-bar'
 export const UserProfile = () => {
 
     const params = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
     const { robots, filterBy } = useSelector(storeState => storeState.robotModule)
@@ -21,8 +22,12 @@ export const UserProfile = () => {
         (async function () {
             const user = await userService.getById(params.id)
             setUser(user)
-            if (!user) return
-            /* FIX - if no user - use msg and redirect to robots */
+            if (!user) {
+                /* FIX - WE DONT GET TO HERE */
+                dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed loading user. Please check your link' } }))
+                navigate('/robots')
+                return
+            }
             dispatch(loadRobots({ owner: { _id: user._id }, pageIdx: 0, numOfPages: 0 }))
         })()
     }, [params.id])

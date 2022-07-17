@@ -8,7 +8,7 @@ export function loadRobots(currFilterBy) {
             dispatch({ type: 'SET_FILTERBY', filterBy })
         } catch (err) {
             console.error('Error:', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed loading robots' } }))
         }
     }
 }
@@ -19,10 +19,10 @@ export function saveRobot(robot) {
         try {
             const savedRobot = await robotService.save(robot)
             dispatch({ type: actionType, robot: savedRobot })
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'Robot updated successfully' } }))
         } catch (err) {
             console.error('Error:', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed updating robot' } }))
         }
     }
 }
@@ -32,10 +32,10 @@ export function removeRobot(robotId) {
         try {
             await robotService.remove(robotId)
             dispatch({ type: 'REMOVE_ROBOT', robotId })
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'Robot removed successfully' } }))
         } catch (err) {
             console.error('Error:', err)
-            /* FIX - add user msg */
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed removing robot' } }))
         }
     }
 }
