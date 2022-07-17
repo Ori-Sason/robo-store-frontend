@@ -33,7 +33,7 @@ export const HomePage = () => {
         </section>
         <section className='login'>
             <Link to='/login' className='login'>Login</Link>
-            <Link to='/login'>Start Anonymously</Link>
+            <Link to='/robots'>Start Anonymously</Link>
         </section>
     </section>
 }

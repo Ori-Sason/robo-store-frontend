@@ -7,15 +7,17 @@ import defaultRobotImg from '../assets/img/default-robot.png'
 import outOfStockImg from '../assets/img/out-of-stock.png'
 import { utilService } from '../services/util.service'
 import { removeRobot } from '../store/actions/robot.action'
+import { QuestionModal } from '../cmps/question-modal'
 
 export const RobotDetails = () => {
 
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [robot, setRobot] = useState(null)
     const user = useSelector(storeState => storeState.userModule.user)
     const { robots } = useSelector(storeState => storeState.robotModule)
+    const [robot, setRobot] = useState(null)
+    const [isOpenModalOpen, setIsOpenModalOpen] = useState(false)
 
     useEffect(() => {
         loadRobot(params.id)
@@ -52,7 +54,13 @@ export const RobotDetails = () => {
 
         {(user && (user.isAdmin || user._id === robot.owner._id)) && <div className='buttons-container'>
             <Link to={`/robots/edit/${robot._id}`}>Edit</Link>
-            <button onClick={() => onDeleteRobot(robot._id)}>Delete</button>
+            <button onClick={() => setIsOpenModalOpen(true)}>Delete</button>
         </div>}
+
+        {isOpenModalOpen && <QuestionModal question={'Are you sure you want to delete this robot?'}
+            answers={['Cancel', 'Yes']}
+            cbFuncs={[() => null, () => onDeleteRobot(robot._id)]}
+            setModalFunc={setIsOpenModalOpen}
+        />}
     </section>
 }
