@@ -87,7 +87,7 @@ export function LoginSignUp() {
             }
         }
 
-        navigate('/')
+        navigate('/robots')
     }
 
 

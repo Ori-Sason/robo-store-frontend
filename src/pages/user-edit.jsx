@@ -60,7 +60,7 @@ export const UserEdit = () => {
             if (err.status === 401) return setIsWrongPassword(true)
             if (err.status === 403) {
                 /* FIX - add user msg for trying to edit anther user */
-                navigate('/')
+                navigate('/robots')
                 return
             }
             setIsWrongPassword(false)

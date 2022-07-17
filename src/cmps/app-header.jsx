@@ -25,6 +25,7 @@ export const AppHeader = () => {
             <section className='header-navbar'>
                 <nav className='full-screen-nav'>
                     <NavLink to="/" exact="true">Home</NavLink>
+                    <NavLink to="/robots" exact="true">Robots</NavLink>
                     {user?.isAdmin && <NavLink to="/users" >Users</NavLink>}
                     <NavLink to="/about" >About</NavLink>
                 </nav>
@@ -42,7 +43,8 @@ export const AppHeader = () => {
                             {user && <NavLink to={`/users/${user._id}`} exact="true" onClick={() => setIsMenuOpen(false)}>My Profile</NavLink>}
                             {!user && <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Login</NavLink>}
                             <NavLink to="/" exact="true" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
-                            {user?.isAdmin && <NavLink to="/users" >Users</NavLink>}
+                            <NavLink to="/robots" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Robots</NavLink>
+                            {user?.isAdmin && <NavLink to="/users" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Users</NavLink>}
                             <NavLink to="/" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>About</NavLink>
                         </nav>
                         {user && <button className="logout-btn" onClick={() => onLogout()}>Logout</button>}

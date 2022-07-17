@@ -32,10 +32,10 @@ export const RobotEdit = () => {
     }, [params.id])
 
     useEffect(() => {
-        if (!user) return navigate('/')
+        if (!user) return navigate('/robots')
         //user is not admin, robot is not new, and the robot owner is not the user => return
-        if (!user.isAdmin && robot._id && robot.owner._id !== user._id) return navigate('/')
-    }, [robot, user, navigate])
+        if (!user.isAdmin && robot._id && robot.owner._id !== user._id) return navigate('/robots')
+    }, [robot])
 
     const onChangeInput = ({ target: { name, value } }) => {
         if (name === 'labels') {

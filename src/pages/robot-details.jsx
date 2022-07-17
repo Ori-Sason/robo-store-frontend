@@ -26,7 +26,7 @@ export const RobotDetails = () => {
     const loadRobot = async (robotId) => {
         const robot = await robotService.getById(robotId)
         if (!robot) {
-            navigate('/')
+            navigate('/robots')
             /* FIX - add msg 'robot was not found' */
         }
         setRobot(robot)
@@ -34,7 +34,7 @@ export const RobotDetails = () => {
 
     const onDeleteRobot = (robotId) => {
         dispatch(removeRobot(robotId))
-        navigate('/')
+        navigate('/robots')
     }
 
     if (!robot) return 'Loading'

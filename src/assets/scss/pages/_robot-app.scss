@@ -1,4 +1,4 @@
-.home-page {
+.robot-app {
     .page-bar-container {
         margin-bottom: 1em;
         display: flex;
@@ -9,7 +9,7 @@
 }
 
 @media screen and(min-width: 500px) {
-    .home-page {
+    .robot-app {
         .page-bar-container {
             justify-content: space-between;
         }

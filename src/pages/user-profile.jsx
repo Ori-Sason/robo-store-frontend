@@ -22,7 +22,7 @@ export const UserProfile = () => {
             const user = await userService.getById(params.id)
             setUser(user)
             if (!user) return
-            /* FIX - if no user - use msg and redirect to home */
+            /* FIX - if no user - use msg and redirect to robots */
             dispatch(loadRobots({ owner: { _id: user._id }, pageIdx: 0, numOfPages: 0 }))
         })()
     }, [params.id])

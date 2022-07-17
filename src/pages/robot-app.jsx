@@ -7,7 +7,7 @@ import { RobotList } from '../cmps/robot-list'
 
 import { loadRobots } from '../store/actions/robot.action'
 
-export const Home = () => {
+export const RobotApp = () => {
 
     const { robots, filterBy } = useSelector(storeState => storeState.robotModule)
     const user = useSelector(storeState => storeState.userModule.user)
@@ -21,7 +21,7 @@ export const Home = () => {
         dispatch(loadRobots(currFilterBy))
     }
 
-    return <section className="home-page main-layout">
+    return <section className="robot-app main-layout">
         <RobotFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
         <div className='page-bar-container'>
             <PageBar filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
