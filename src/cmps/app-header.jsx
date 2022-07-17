@@ -42,6 +42,7 @@ export const AppHeader = () => {
                             {user && <NavLink to={`/users/${user._id}`} exact="true" onClick={() => setIsMenuOpen(false)}>My Profile</NavLink>}
                             {!user && <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Login</NavLink>}
                             <NavLink to="/" exact="true" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
+                            {user?.isAdmin && <NavLink to="/users" >Users</NavLink>}
                             <NavLink to="/" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>About</NavLink>
                         </nav>
                         {user && <button className="logout-btn" onClick={() => onLogout()}>Logout</button>}

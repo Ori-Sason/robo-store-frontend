@@ -159,7 +159,7 @@ export function LoginSignUp() {
                             {errorMsg && <p className='error-msg'>{errorMsg}</p>}
                             <Grid item xs={12}>
                                 <FormControlLabel
-                                    control={<Checkbox value={true} color="primary" name="remember" />}
+                                    control={<Checkbox defaultChecked={true} value={true} color="primary" name="remember" />}
                                     label="Remember me"
                                 />
                             </Grid>

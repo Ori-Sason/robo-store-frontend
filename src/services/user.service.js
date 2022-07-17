@@ -2,7 +2,7 @@ import { httpService } from './http.service'
 
 const AUTH_BASE_PATH = 'auth/'
 const USER_BASE_PATH = 'user/'
-const STORAGE_KEY_LOGGIN = 'robots_loggedInUser'
+const STORAGE_KEY_LOGIN = 'robots_loggedInUser'
 
 export const userService = {
     getLoggedInUser,
@@ -16,7 +16,11 @@ export const userService = {
 }
 
 function getLoggedInUser() {
-    const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGIN))
+    let user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGIN))
+    if (!user) {
+        user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN)) //in case the user checked 'remember me
+        if (user) _rememberUserAndSignToSocket(user, false)
+    }
     return user
 }
 
@@ -37,7 +41,7 @@ async function signup(credentials, isRemember) {
 }
 
 async function logout() {
-    localStorage.removeItem(STORAGE_KEY_LOGGIN)
+    localStorage.removeItem(STORAGE_KEY_LOGIN)
     /* FIX - socketService */
     return await httpService.post(AUTH_BASE_PATH + 'logout')
 }
@@ -55,10 +59,10 @@ async function getById(userId) {
 async function update(user, isSetAdmin) {
     try {
         let savedUser
-        
+
         if (isSetAdmin) savedUser = await httpService.put(USER_BASE_PATH + 'admin', user)
         else savedUser = await httpService.put(USER_BASE_PATH, user)
-        
+
         return savedUser
     } catch (err) {
         const { status, data } = err.response
@@ -74,6 +78,7 @@ async function remove(userId) {
 function _rememberUserAndSignToSocket(user, isRemember) {
     if (user) {
         /* FIX - socket service */
-        if (isRemember) localStorage.setItem(STORAGE_KEY_LOGGIN, JSON.stringify(user))
+        sessionStorage.setItem(STORAGE_KEY_LOGIN, JSON.stringify(user))
+        if (isRemember) localStorage.setItem(STORAGE_KEY_LOGIN, JSON.stringify(user))
     }
 }
