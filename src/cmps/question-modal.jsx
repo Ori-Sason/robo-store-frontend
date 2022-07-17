@@ -1,16 +1,22 @@
 export const QuestionModal = ({ question, answers, cbFuncs, setModalFunc }) => {
 
-    const onButtonClick = (idx) => {
+    const onButtonClick = (ev, idx) => {
+        ev.stopPropagation()
         cbFuncs[idx]()
         setModalFunc(null)
     }
 
+    const onBacklogClick = (ev) => {
+        ev.stopPropagation()
+        setModalFunc(null)
+    }
+
     return <section className="question-modal">
-        <section className='backlog' onClick={() => setModalFunc(null)}></section>
+        <section className='backlog' onClick={onBacklogClick}></section>
         <section className='modal'>
             <h2>{question}</h2>
             <section className='answers'>
-                {answers.map((answer, idx) => <button className="main-btn" key={idx} onClick={() => onButtonClick(idx)}>{answer}</button>)}
+                {answers.map((answer, idx) => <button className="main-btn" key={idx} onClick={(ev) => onButtonClick(ev, idx)}>{answer}</button>)}
             </section>
         </section>
     </section>
