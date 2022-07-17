@@ -16,10 +16,11 @@ export function loadRobots(currFilterBy) {
 export function saveRobot(robot) {
     return async dispatch => {
         const actionType = robot._id ? 'UPDATE_ROBOT' : 'ADD_ROBOT'
+        const userMsg = robot._id ? 'Robot updated successfully' : 'Robot was added successfully'
         try {
             const savedRobot = await robotService.save(robot)
             dispatch({ type: actionType, robot: savedRobot })
-            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'Robot updated successfully' } }))
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: userMsg } }))
         } catch (err) {
             console.error('Error:', err)
             dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed updating robot' } }))

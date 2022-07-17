@@ -59,7 +59,8 @@ export const RobotEdit = () => {
             return
         }
         dispatch(saveRobot(robot))
-        navigate(`/robots/${robot._id}`)
+        if (robot._id) navigate(`/robots/${robot._id}`)
+        else navigate('/robots')
     }
 
     if (!user) return <></>
