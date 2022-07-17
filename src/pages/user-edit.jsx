@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { userService } from '../services/user.service'
-import { login } from '../store/actions/user.action'
+import { login, updateUser } from '../store/actions/user.action'
 
 export const UserEdit = () => {
 
@@ -50,7 +50,8 @@ export const UserEdit = () => {
         }
 
         try {
-            await userService.update(user)
+            const savedUser = await userService.update(user)
+            dispatch(updateUser(savedUser, false, false))
             /* if user updated his own details (not admin) we need to login again to update local storage and cookie */
             if (!loggedInUser.isAdmin) {
                 dispatch(login({ username: user.username, password: user.newPassword || user.password }, true, true))

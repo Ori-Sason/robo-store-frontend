@@ -60,10 +60,12 @@ export function loadUsers() {
     }
 }
 
-export function updateUser(user, isSetAdmin) {
+export function updateUser(user, isMakeHttpRequest = true, isSetAdmin = false) {
     return async dispatch => {
         try {
-            const savedUser = await userService.update(user, isSetAdmin)
+            let savedUser = user
+            if (isMakeHttpRequest) savedUser = await userService.update(user, isSetAdmin)
+
             if (isSetAdmin) dispatch({ type: 'UPDATE_USER_ADMIN', user: savedUser }) //user_admin returns only mini-user
             else dispatch({ type: 'UPDATE_USER', user: savedUser })
             /* FIX - add user msg */

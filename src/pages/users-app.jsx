@@ -15,7 +15,7 @@ export const UserApp = () => {
     const onToggleAdmin = (userId, isAdmin) => {
         /* FIX - Are you sure modal */
         const user = { _id: userId, isAdmin: !isAdmin }
-        dispatch(updateUser(user, true))
+        dispatch(updateUser(user, true, true))
     }
 
     const onDeleteUser = (userId) => {
