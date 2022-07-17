@@ -25,6 +25,7 @@ export const AppHeader = () => {
             <section className='header-navbar'>
                 <nav className='full-screen-nav'>
                     <NavLink to="/" exact="true">Home</NavLink>
+                    {user?.isAdmin && <NavLink to="/users" >Users</NavLink>}
                     <NavLink to="/about" >About</NavLink>
                 </nav>
                 <div className='hamburger-menu'>

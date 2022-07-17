@@ -56,7 +56,6 @@ export const UserEdit = () => {
                 dispatch(login({ username: user.username, password: user.newPassword || user.password }, true, true))
             }
         } catch (err) {
-            console.log('err in component', err)
             if (err.status === 401) return setIsWrongPassword(true)
             if (err.status === 403) {
                 /* FIX - add user msg for trying to edit anther user */

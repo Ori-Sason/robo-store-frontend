@@ -6,6 +6,7 @@ import { RobotDetails } from './pages/robot-details';
 import { RobotEdit } from './pages/robot-edit';
 import { UserEdit } from './pages/user-edit';
 import { UserProfile } from './pages/user-profile';
+import { UserApp } from './pages/users-app';
 
 export function App() {
   return <section className="app">
@@ -19,6 +20,7 @@ export function App() {
         <Route path='/robots/edit/' element={<RobotEdit />} />
         <Route path='/users/:id' element={<UserProfile />} />
         <Route path='/users/edit/:id' element={<UserEdit />} />
+        <Route path='/users' element={<UserApp />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </main>

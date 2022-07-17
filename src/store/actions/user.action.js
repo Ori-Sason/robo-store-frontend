@@ -26,7 +26,7 @@ export function signup(credentials, isMakeHttpRequest = true, isRemember = false
         try {
             if (isMakeHttpRequest) user = await userService.signup(credentials, isRemember)
             else user = credentials
-            
+
             dispatch({ type: 'SET_USER', user })
             return user
         } catch (err) {
@@ -44,6 +44,45 @@ export function logout() {
         } catch (err) {
             console.log('Error on logout', err)
             // dispatch(setUserMsg({ type: 'danger', txt: 'Failed logout. Please try again later' }))
+        }
+    }
+}
+
+export function loadUsers() {
+    return async dispatch => {
+        try {
+            const users = await userService.query()
+            dispatch({ type: 'SET_USERS', users: users })
+        } catch (err) {
+            console.error('Error on loading users', err)
+            /* FIX - add user msg */
+        }
+    }
+}
+
+export function updateUser(user, isSetAdmin) {
+    return async dispatch => {
+        try {
+            const savedUser = await userService.update(user, isSetAdmin)
+            if (isSetAdmin) dispatch({ type: 'UPDATE_USER_ADMIN', user: savedUser }) //user_admin returns only mini-user
+            else dispatch({ type: 'UPDATE_USER', user: savedUser })
+            /* FIX - add user msg */
+        } catch (err) {
+            console.error('Error on updating user', err)
+            /* FIX - add user msg */
+        }
+    }
+}
+
+export function removeUser(userId) {
+    return async dispatch => {
+        try {
+            await userService.remove(userId)
+            dispatch({ type: 'REMOVE_USER', userId })
+            /* FIX - add user msg */
+        } catch (err) {
+            console.error('Error on loading users', err)
+            /* FIX - add user msg */
         }
     }
 }
