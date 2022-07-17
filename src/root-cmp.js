@@ -22,7 +22,7 @@ export function App() {
         <Route path='/users/:id' element={<UserProfile />} />
         <Route path='/users/edit/:id' element={<UserEdit />} />
         <Route path='/users' element={<UserApp />} />
-        <Route path='/' element={<RobotApp />} />
+        <Route path='*' element={<RobotApp />} /> {/* FIX - change to Home */}
       </Routes>
     </main>
   </section>
