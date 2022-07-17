@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { UserImg } from '../cmps/user-img'
 import { userService } from '../services/user.service'
 
@@ -37,7 +37,9 @@ export const UserProfile = () => {
         <header>
             <UserImg user={user} />
             <h2 className='page-header'>{user.fullname}</h2>
-            {loggedInUser?._id === user._id && <img className="edit-btn" src={editImg} alt="edit" />}
+            {loggedInUser?._id === user._id && <Link to={`/users/edit/${user._id}`}>
+                <img className="edit-btn" src={editImg} alt="edit" />
+            </Link>}
         </header>
         <section className='robots'>
             <h2 className='sub-header'>Robots</h2>

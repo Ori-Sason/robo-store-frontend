@@ -1,0 +1,79 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { userService } from '../services/user.service'
+
+export const UserEdit = () => {
+
+    const params = useParams()
+    const [currPassword, setCurrPassword] = useState('')
+    const [isPassword, setIsPassword] = useState(false)
+    const [isWrongPassword, setIsWrongPassword] = useState(false)
+    const [isWrongNewPassword, setIsWrongNewPassword] = useState(false)
+    const [updatedUser, setUpdatedUser] = useState({ fullname: '', password1: '', password2: '' })
+
+    useEffect(() => {
+        (async function () {
+            const user = await userService.getById(params.id)
+            setUpdatedUser({ ...updatedUser, fullname: user.fullname })
+        })()
+    }, [params])
+
+    const onInputChange = ({ target: { name, value, checked } }) => {
+        if (name === 'isPassword') return setIsPassword(checked)
+        if (name === 'currPassword') return setCurrPassword(value)
+        setUpdatedUser({ ...updatedUser, [name]: value })
+    }
+
+    const onSubmit = async (ev) => {
+        ev.preventDefault()
+        
+        const user = {
+            password: currPassword,
+            fullname: updatedUser.fullname
+        }
+        
+        if (isPassword) {
+            const { password1, password2 } = updatedUser
+            if (password1 !== password2) {
+                setUpdatedUser({ ...updatedUser, password1: '', password2: '' })
+                setIsWrongNewPassword(true)
+                return
+            }
+            user.newPassword = updatedUser.password1
+        }
+
+        console.log('user', user)
+        // const savedUser = await userService.update(user)
+    }
+
+    return <section className="user-edit main-layout">
+        <h2 className='page-header'>Edit user</h2>
+        <form onSubmit={onSubmit}>
+            <ul className='clean-list'>
+                <label htmlFor="curr-password">Current password: </label>
+                <input type="password" name="currPassword" id="curr-password" autoComplete='new-password'
+                    value={currPassword} onChange={onInputChange} required />
+                {isWrongPassword && <span className='error-msg'>Wrong password</span>}
+            </ul>
+            <ul className='clean-list'>
+                <label htmlFor="fullname">Full name: </label>
+                <input type="text" name="fullname" id="fullname" value={updatedUser.fullname} onChange={onInputChange} required />
+            </ul>
+
+            <input type="checkbox" name="isPassword" id="change-password" checked={isPassword} onChange={onInputChange} />
+            <label htmlFor="change-password">I want to change my password</label>
+            <fieldset disabled={!isPassword}>
+                <ul className='clean-list'>
+                    <label htmlFor="password1">New password: </label>
+                    <input type="password" name="password1" id="password1" value={updatedUser.password1} onChange={onInputChange} required />
+                </ul>
+                <ul className='clean-list'>
+                    <label htmlFor="password2">Verify password: </label>
+                    <input type="password" name="password2" id="password2" value={updatedUser.password2} onChange={onInputChange} required />
+                </ul>
+                {isWrongNewPassword && <p className='error-msg'>Password doesn't match. Please try again.</p>}
+            </fieldset>
+            <button>Save</button>
+        </form>
+    </section>
+}
