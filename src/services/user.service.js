@@ -10,9 +10,10 @@ export const userService = {
     signup,
     logout,
     getById,
+    update,
 }
 
-function getLoggedInUser(){
+function getLoggedInUser() {
     const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGIN))
     return user
 }
@@ -39,9 +40,21 @@ async function logout() {
     return await httpService.post(AUTH_BASE_PATH + 'logout')
 }
 
-async function getById(userId){
+async function getById(userId) {
     const user = await httpService.get(USER_BASE_PATH + userId)
     return user
+}
+
+async function update(user) {
+    try {
+        const savedUser = await httpService.put(USER_BASE_PATH, user)
+        return savedUser
+    } catch (err) {
+        if (err.response.status === 401) {
+            throw { status: 401, msg: 'wrong password' }
+        }
+        throw { status: err.response.status, msg: err.response }
+    }
 }
 
 function _rememberUserAndSignToSocket(user, isRemember) {
