@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 import { userService } from '../services/user.service'
+import { login } from '../store/actions/user.action'
 
 export const UserEdit = () => {
 
     const params = useParams()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const loggedInUser = useSelector(storeState => storeState.userModule.user)
     const [currPassword, setCurrPassword] = useState('')
     const [isPassword, setIsPassword] = useState(false)
     const [isWrongPassword, setIsWrongPassword] = useState(false)
@@ -14,7 +19,7 @@ export const UserEdit = () => {
     useEffect(() => {
         (async function () {
             const user = await userService.getById(params.id)
-            setUpdatedUser({ ...updatedUser, fullname: user.fullname })
+            setUpdatedUser({ ...updatedUser, _id: params.id, username: user.username, fullname: user.fullname })
         })()
     }, [params])
 
@@ -28,6 +33,8 @@ export const UserEdit = () => {
         ev.preventDefault()
 
         const user = {
+            _id: updatedUser._id,
+            username: updatedUser.username,
             password: currPassword,
             fullname: updatedUser.fullname
         }
@@ -42,19 +49,26 @@ export const UserEdit = () => {
             user.newPassword = updatedUser.password1
         }
 
-        console.log('user', user)
-
         try {
-            // const savedUser = await userService.update(user)
-            // console.log('savedUser', savedUser)
+            await userService.update(user)
+            /* if user updated his own details (not admin) we need to login again to update local storage and cookie */
+            if (!loggedInUser.isAdmin) {
+                dispatch(login({ username: user.username, password: user.newPassword || user.password }, true, true))
+            }
         } catch (err) {
-            if (err.status === 401) return setIsWrongNewPassword(true)
+            console.log('err in component', err)
+            if (err.status === 401) return setIsWrongPassword(true)
+            if (err.status === 403) {
+                /* FIX - add user msg for trying to edit anther user */
+                navigate('/')
+                return
+            }
             setIsWrongPassword(false)
             console.log('err', err)
             return
         }
 
-        //navigate
+        navigate(`/users/${user._id}`)
     }
 
     return <section className="user-edit main-layout">
@@ -77,11 +91,11 @@ export const UserEdit = () => {
                 <fieldset disabled={!isPassword}>
                     <li className='clean-list'>
                         <label htmlFor="password1">New password: </label>
-                        <input type="password" name="password1" id="password1" value={updatedUser.password1} onChange={onInputChange} required />
+                        <input type="password" name="password1" id="password1" value={updatedUser.password1} onChange={onInputChange} required minLength={3} />
                     </li>
                     <li className='clean-list'>
                         <label htmlFor="password2">Verify password: </label>
-                        <input type="password" name="password2" id="password2" value={updatedUser.password2} onChange={onInputChange} required />
+                        <input type="password" name="password2" id="password2" value={updatedUser.password2} onChange={onInputChange} required minLength={3} />
                     </li>
                     {isWrongNewPassword && <p className='error-msg'>Password doesn't match. Please try again.</p>}
                 </fieldset>

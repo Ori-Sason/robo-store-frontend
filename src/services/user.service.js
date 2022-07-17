@@ -50,10 +50,9 @@ async function update(user) {
         const savedUser = await httpService.put(USER_BASE_PATH, user)
         return savedUser
     } catch (err) {
-        if (err.response.status === 401) {
-            throw { status: 401, msg: 'wrong password' }
-        }
-        throw { status: err.response.status, msg: err.response }
+        const { status, data } = err.response
+        if (status === 401 || status === 403) throw ({ status, data }) 
+        throw err
     }
 }
 
