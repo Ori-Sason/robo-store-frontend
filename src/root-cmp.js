@@ -8,6 +8,7 @@ import { UserEdit } from './pages/user-edit';
 import { UserProfile } from './pages/user-profile';
 import { UserApp } from './pages/users-app';
 import { UserMsg } from './cmps/user-msg';
+import { HomePage } from './pages/home-page';
 
 export function App() {
   return <section className="app">
@@ -23,7 +24,7 @@ export function App() {
         <Route path='/users/:id' element={<UserProfile />} />
         <Route path='/users/edit/:id' element={<UserEdit />} />
         <Route path='/users' element={<UserApp />} />
-        <Route path='*' element={<RobotApp />} /> {/* FIX - change to Home */}
+        <Route path='*' element={<HomePage />} /> {/* FIX - change to Home */}
       </Routes>
     </main>
     <UserMsg />

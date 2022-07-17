@@ -1,6 +1,6 @@
 import { httpService } from './http.service'
 // import { storageService } from './async-storage.service'
-// import { utilService } from './util.service'
+import { utilService } from './util.service'
 
 /* COMMENTS ARE FOR LOCAL STORAGE DATABASE (BEFORE I'VE CREATED BACKEND) */
 
@@ -10,6 +10,7 @@ export const robotService = {
 	save,
 	remove,
 	getEmptyRobot,
+	getRandomRobotImg,
 	getLabels,
 }
 
@@ -727,6 +728,11 @@ function getEmptyRobot() {
 		inStock: false,
 		img: ''
 	}
+}
+
+function getRandomRobotImg() {
+	const id = utilService.makeId(16)
+	return `https://robohash.org/${id}?set=set3`
 }
 
 async function getLabels() {
