@@ -33,6 +33,5 @@ export const UserApp = () => {
         <h2 className='page-header'>Users</h2>
         <UserList users={users} onToggleAdmin={onToggleAdmin} onDeleteUser={onDeleteUser} openQuestionModal={openQuestionModal} />
         {questionModalOptions && <QuestionModal {...questionModalOptions} setModalFunc={setQuestionModalOptions} />}
-        {/* <QuestionModal question="Are you sure?" answers={['Cancel', 'Yes']} cbFuncs={[() => null, () => null]} /> */}
     </section>
 }

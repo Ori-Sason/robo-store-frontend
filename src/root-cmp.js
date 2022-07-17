@@ -7,6 +7,7 @@ import { RobotEdit } from './pages/robot-edit';
 import { UserEdit } from './pages/user-edit';
 import { UserProfile } from './pages/user-profile';
 import { UserApp } from './pages/users-app';
+import { UserMsg } from './cmps/user-msg';
 
 export function App() {
   return <section className="app">
@@ -25,5 +26,6 @@ export function App() {
         <Route path='*' element={<RobotApp />} /> {/* FIX - change to Home */}
       </Routes>
     </main>
+    <UserMsg />
   </section>
 }

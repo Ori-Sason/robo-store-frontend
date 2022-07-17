@@ -22,7 +22,7 @@ export function userReducer(state = initialState, action) {
         case 'REMOVE_USER':
             users = state.users.filter(user => user._id !== action.userId)
             return { ...state, users }
-        case 'USER_MSG':
+        case 'SET_USER_MSG':
             return { ...state, msg: action.msg }
         default:
             return state

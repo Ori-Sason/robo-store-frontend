@@ -68,7 +68,8 @@ export function updateUser(user, isMakeHttpRequest = true, isSetAdmin = false) {
 
             if (isSetAdmin) dispatch({ type: 'UPDATE_USER_ADMIN', user: savedUser }) //user_admin returns only mini-user
             else dispatch({ type: 'UPDATE_USER', user: savedUser })
-            /* FIX - add user msg */
+
+            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'User updated successfully' } }))
         } catch (err) {
             console.error('Error on updating user', err)
             /* FIX - add user msg */
@@ -86,5 +87,11 @@ export function removeUser(userId) {
             console.error('Error on loading users', err)
             /* FIX - add user msg */
         }
+    }
+}
+
+export function setUserMsg(msg) {
+    return dispatch => {
+        dispatch({ type: 'SET_USER_MSG', msg })
     }
 }
