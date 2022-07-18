@@ -80,7 +80,7 @@ export const RobotDetails = () => {
 
         <ReviewForm isOpen={isReviewFormOpen} onAddReview={onAddReview} />
 
-        {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={false} isShowRobot={true}/>}
+        {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={true} isShowRobot={false}/>}
         {!reviews?.length > 0 &&
             <p>No one wrote a review for this robot. {user ? 'Be ' : <Link to="/signup" className='signup-link'>Create an account</Link>}
                 {user ? '' : ' and be '}

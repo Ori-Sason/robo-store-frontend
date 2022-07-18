@@ -8,6 +8,8 @@ import editImg from '../assets/img/edit-icon.png'
 import { loadRobots } from '../store/actions/robot.action'
 import { RobotList } from '../cmps/robot-list'
 import { PageBar } from '../cmps/page-bar'
+import { ReviewList } from '../cmps/review-list'
+import { loadReviews } from '../store/actions/review.action'
 
 export const UserProfile = () => {
 
@@ -16,6 +18,7 @@ export const UserProfile = () => {
     const dispatch = useDispatch()
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
     const { robots, filterBy } = useSelector(storeState => storeState.robotModule)
+    const { reviews } = useSelector(storeState => storeState.reviewModule)
     const [user, setUser] = useState(null)
 
     useEffect(() => {
@@ -28,6 +31,7 @@ export const UserProfile = () => {
                 navigate('/robots')
                 return
             }
+            dispatch(loadReviews({ byUserId: user._id }))
             dispatch(loadRobots({ owner: { _id: user._id }, pageIdx: 0, numOfPages: 0 }))
         })()
     }, [params.id])
@@ -56,13 +60,8 @@ export const UserProfile = () => {
         </section>
         <section className='reviews'>
             <h2 className='sub-header'>Reviews</h2>
-            {/* FIX -  */}
-            {/* {robots?.length && <>
-                {filterBy.numOfPages > 1 && < PageBar filterBy={filterBy} onSetFilterBy={onChangePage} />}
-                <RobotList robots={robots} />
-            </>} */}
-            {/* {!robots?.length && <p>The user didn't add robots yet</p>} */}
-            <p>The user didn't write reviews yet.</p>
+            {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={false} isShowRobot={true} />}
+            {!reviews?.length > 0 && <p>The user didn't write reviews yet.</p>}
         </section>
     </section>
 }
