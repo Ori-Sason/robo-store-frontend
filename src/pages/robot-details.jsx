@@ -11,6 +11,7 @@ import { QuestionModal } from '../cmps/question-modal'
 import { ReviewForm } from '../cmps/review-form'
 import { loadReviews, saveReview } from '../store/actions/review.action'
 import { ReviewList } from '../cmps/review-list'
+import { ChatRoom } from '../cmps/chat-room'
 
 export const RobotDetails = () => {
 
@@ -80,13 +81,14 @@ export const RobotDetails = () => {
 
         <ReviewForm isOpen={isReviewFormOpen} onAddReview={onAddReview} />
 
-        {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={true} isShowRobot={false}/>}
-        {!reviews?.length > 0 &&
+        {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={true} isShowRobot={false} />}
+        {!reviews?.length > 0 && !isReviewFormOpen &&
             <p>No one wrote a review for this robot. {user ? 'Be ' : <Link to="/signup" className='signup-link'>Create an account</Link>}
                 {user ? '' : ' and be '}
                 the first one!
             </p>
         }
 
+        <ChatRoom chat={[]} />
     </section>
 }

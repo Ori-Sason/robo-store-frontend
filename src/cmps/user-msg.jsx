@@ -19,7 +19,8 @@ export const UserMsg = () => {
         }
     }, [userMsg])
 
-    const onCloseMsg = () => {
+    const onCloseMsg = (ev) => {
+        ev.stopPropagation()
         clearTimeout(timeoutId.current)
         dispatch(setUserMsg(null))
     }

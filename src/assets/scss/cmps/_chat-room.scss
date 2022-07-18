@@ -1,0 +1,135 @@
+/* First section is for the open and closing mechanism */
+.chat-room {
+    position: fixed;
+    bottom: 20px;
+    inset-inline-end: 20px;
+    width: 100%;
+    height: 600px;
+    max-height: 600px;
+    max-width: calc(100vw - 40px);
+    transition: .5s;
+    padding: 1em;
+    overflow: hidden;
+    color: white;
+    background-color: $primary-clr-850;
+    border-radius: 8px;
+    box-shadow: 0 0 10px $clr-black;
+}
+
+.chat-room.close {
+    max-height: 90px;
+    max-width: 90px;
+    background-color: transparent;
+    box-shadow: unset;
+}
+
+.chat-room.open .chat-close {
+    opacity: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.chat-room .chat-close {
+    position: absolute;
+    bottom: 0;
+    height: 90px;
+    inset-inline-end: 0;
+    z-index: 1;
+
+    transition: .5s;
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* Second section is for "regular" styling */
+.chat-room>form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+
+        .title {
+            display: flex;
+            align-items: flex-end;
+            gap: 1em;
+            overflow: hidden;
+
+            h2 {
+                white-space: nowrap;
+            }
+
+            .typing-msg {
+                margin-bottom: 0.125em;
+                color: #e88be2;
+                font-weight: bold;
+                white-space: nowrap;
+                flex-basis: 0;
+                flex-grow: 1;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+
+        .close-btn {
+            height: 2rem;
+            aspect-ratio: 1/1;
+            color: $primary-clr-100;
+            font-size: 1em;
+            border: none;
+            border-radius: 50%;
+            background-color: unset;
+
+            &:hover {
+                background-color: lighten($color: $primary-clr-850, $amount: 10%);
+            }
+        }
+    }
+
+    .main-chat {
+        flex-grow: 1;
+        padding: 1em;
+        color: $clr-black;
+        border-radius: 4px;
+        background-color: $primary-clr-100;
+        overflow-y: auto;
+
+        &>*:not(:last-child) {
+            margin-bottom: 0.5em;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+
+        a.name:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .msg-container {
+        display: flex;
+        gap: 0.5em;
+
+        input {
+            flex-grow: 1;
+            border-radius: 4px;
+        }
+
+        button {
+            font-weight: bold;
+            background-color: rgb(159 100 255);
+        }
+    }
+}
+
+@media screen and(min-width: 600px) {
+    .chat-room {
+        width: 500px;
+        max-width: 500px;
+        inset-inline-end: 40px;
+    }
+}
