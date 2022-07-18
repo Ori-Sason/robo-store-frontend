@@ -9,6 +9,8 @@ import { utilService } from '../services/util.service'
 import { removeRobot } from '../store/actions/robot.action'
 import { QuestionModal } from '../cmps/question-modal'
 import { ReviewForm } from '../cmps/review-form'
+import { loadReviews, saveReview } from '../store/actions/review.action'
+import { ReviewList } from '../cmps/review-list'
 
 export const RobotDetails = () => {
 
@@ -17,14 +19,15 @@ export const RobotDetails = () => {
     const navigate = useNavigate()
     const user = useSelector(storeState => storeState.userModule.user)
     const { robots } = useSelector(storeState => storeState.robotModule)
+    const { reviews } = useSelector(storeState => storeState.reviewModule)
     const [robot, setRobot] = useState(null)
     const [isReviewFormOpen, setIsReviewFormOpen] = useState(false)
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false)
 
     useEffect(() => {
-        loadRobot(params.id)
         /* Question - Here I force update when robots change since I move to this page from 'edit'. */
         /* is there a better way? because im creating 2 requests by this way */
+        loadRobot(params.id)
     }, [params, robots])
 
     const loadRobot = async (robotId) => {
@@ -34,6 +37,7 @@ export const RobotDetails = () => {
             /* FIX - WE DONT GET TO HERE */
             dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed loading robot. Check your link please' } }))
         }
+        dispatch(loadReviews({ byRobotId: robot._id }))
         setRobot(robot)
     }
 
@@ -43,7 +47,8 @@ export const RobotDetails = () => {
     }
 
     const onAddReview = (review) => {
-        console.log('review', review)
+        review.robotId = robot._id
+        dispatch(saveReview(review))
         setIsReviewFormOpen(false)
     }
 
@@ -67,12 +72,21 @@ export const RobotDetails = () => {
             </>}
         </div>
 
-        <ReviewForm isOpen={isReviewFormOpen} onAddReview={onAddReview} />
-
         {isQuestionModalOpen && <QuestionModal question={'Are you sure you want to delete this robot?'}
             answers={['Cancel', 'Yes']}
             cbFuncs={[() => null, () => onDeleteRobot(robot._id)]}
             setModalFunc={setIsQuestionModalOpen}
         />}
+
+        <ReviewForm isOpen={isReviewFormOpen} onAddReview={onAddReview} />
+
+        {reviews?.length > 0 && <ReviewList reviews={reviews} isShowWriter={false} isShowRobot={true}/>}
+        {!reviews?.length > 0 &&
+            <p>No one wrote a review for this robot. {user ? 'Be ' : <Link to="/signup" className='signup-link'>Create an account</Link>}
+                {user ? '' : ' and be '}
+                the first one!
+            </p>
+        }
+
     </section>
 }

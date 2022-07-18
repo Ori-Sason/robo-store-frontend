@@ -3,7 +3,7 @@ import { StarRatePicker } from './star-rate-picker'
 
 export const ReviewForm = ({ isOpen, onAddReview }) => {
 
-    const [review, setReview] = useState({ title: '', rate: 1, description: '' })
+    const [review, setReview] = useState({ title: '', rate: 1, content: '' })
 
     const onInputChange = ({ target: { name, value } }) => {
         setReview({ ...review, [name]: value })
@@ -16,7 +16,7 @@ export const ReviewForm = ({ isOpen, onAddReview }) => {
     const onSubmit = (ev) => {
         ev.preventDefault()
         onAddReview(review)
-        setReview({ title: '', rate: 1, description: '' })
+        setReview({ title: '', rate: 1, content: '' })
     }
 
     return <section className={`review-form ${isOpen ? 'open' : 'close'}`}>
@@ -31,8 +31,8 @@ export const ReviewForm = ({ isOpen, onAddReview }) => {
                     <StarRatePicker rate={review.rate} maxRate={5} onSetRate={onSetRate} />
                 </li>
                 <li>
-                    <textarea name="description" value={review.description} onChange={onInputChange}
-                        placeholder="Review description (Optional)"></textarea>
+                    <textarea name="content" value={review.content} onChange={onInputChange}
+                        placeholder="Review content (Optional)"></textarea>
                 </li>
             </ul>
             <button className='main-btn'>Add</button>
