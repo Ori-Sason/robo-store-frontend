@@ -42,6 +42,11 @@ export const RobotDetails = () => {
         navigate('/robots')
     }
 
+    const onAddReview = (review) => {
+        console.log('review', review)
+        setIsReviewFormOpen(false)
+    }
+
     if (!robot) return 'Loading'
 
     return <section className="robot-details main-layout">
@@ -62,7 +67,7 @@ export const RobotDetails = () => {
             </>}
         </div>
 
-        <ReviewForm isOpen={isReviewFormOpen} />
+        <ReviewForm isOpen={isReviewFormOpen} onAddReview={onAddReview} />
 
         {isQuestionModalOpen && <QuestionModal question={'Are you sure you want to delete this robot?'}
             answers={['Cancel', 'Yes']}

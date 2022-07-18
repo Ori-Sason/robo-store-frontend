@@ -1,31 +1,37 @@
 import { useState } from 'react'
 import { StarRatePicker } from './star-rate-picker'
 
-export const ReviewForm = ({ isOpen }) => {
+export const ReviewForm = ({ isOpen, onAddReview }) => {
 
     const [review, setReview] = useState({ title: '', rate: 1, description: '' })
 
     const onInputChange = ({ target: { name, value } }) => {
         setReview({ ...review, [name]: value })
     }
-    
+
     const onSetRate = (rate) => {
         setReview({ ...review, rate })
     }
 
+    const onSubmit = (ev) => {
+        ev.preventDefault()
+        onAddReview(review)
+        setReview({ title: '', rate: 1, description: '' })
+    }
+
     return <section className={`review-form ${isOpen ? 'open' : 'close'}`}>
         <h2 className='sub-header'>Add a review</h2>
-        <form>
+        <form onSubmit={onSubmit}>
             <ul className='clean-list'>
                 <li>
-                    <input type="text" name="title" value={review.title} onChange={onInputChange} 
+                    <input type="text" name="title" value={review.title} onChange={onInputChange}
                         placeholder="Review title" autoFocus required />
                 </li>
                 <li>
-                    <StarRatePicker rate={review.rate} maxRate={5} onSetRate={onSetRate}/>
+                    <StarRatePicker rate={review.rate} maxRate={5} onSetRate={onSetRate} />
                 </li>
                 <li>
-                    <textarea name="description" value={review.description} onChange={onInputChange} 
+                    <textarea name="description" value={review.description} onChange={onInputChange}
                         placeholder="Review description (Optional)"></textarea>
                 </li>
             </ul>
