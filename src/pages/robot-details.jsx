@@ -65,13 +65,13 @@ export const RobotDetails = () => {
         <p className='date'><strong>Creation Date:</strong> {utilService.dateToString(robot.createdAt)}</p>
         <p className='price'><strong>Price:</strong> ${utilService.numberWithCommas(robot.price)}</p>
 
-        <div className='buttons-container'>
+        {user && <div className='buttons-container'>
             <button className='review-form-btn' onClick={() => setIsReviewFormOpen(!isReviewFormOpen)}>{isReviewFormOpen ? 'Close Form' : 'Add Review'}</button>
-            {(user && (user.isAdmin || user._id === robot.owner._id)) && <>
+            {(user.isAdmin || user._id === robot.owner._id) && <>
                 <Link to={`/robots/edit/${robot._id}`}>Edit</Link>
                 <button onClick={() => setIsQuestionModalOpen(true)}>Delete</button>
             </>}
-        </div>
+        </div>}
 
         {isQuestionModalOpen && <QuestionModal question={'Are you sure you want to delete this robot?'}
             answers={['Cancel', 'Yes']}
