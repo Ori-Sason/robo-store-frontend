@@ -19,8 +19,7 @@ export const UserMsg = () => {
         }
     }, [userMsg])
 
-    const onCloseMsg = (ev) => {
-        ev.stopPropagation()
+    const onCloseMsg = () => {
         clearTimeout(timeoutId.current)
         dispatch(setUserMsg(null))
     }
@@ -29,6 +28,6 @@ export const UserMsg = () => {
 
     return <section className={`user-msg open ${userMsg.type}`}>
         <p>{userMsg.msg}</p>
-        <button className='close-btn' onClick={onCloseMsg}>X</button>
-    </section>
+        <button className='close-btn' onClick={(ev) => { ev.stopPropagation(); onCloseMsg() }}>X</button>
+    </section >
 }

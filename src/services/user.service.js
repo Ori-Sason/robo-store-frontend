@@ -42,6 +42,7 @@ async function signup(credentials, isRemember) {
 
 async function logout() {
     localStorage.removeItem(STORAGE_KEY_LOGIN)
+    sessionStorage.removeItem(STORAGE_KEY_LOGIN)
     /* FIX - socketService */
     return await httpService.post(AUTH_BASE_PATH + 'logout')
 }
