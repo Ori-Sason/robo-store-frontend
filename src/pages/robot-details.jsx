@@ -74,7 +74,7 @@ export const RobotDetails = () => {
 
         {isQuestionModalOpen && <QuestionModal question={'Are you sure you want to delete this robot?'}
             answers={['Cancel', 'Yes']}
-            cbFuncs={[() => null, () => onDeleteRobot(robot._id)]}
+            cbFuncs={[null, () => onDeleteRobot(robot._id)]}
             setModalFunc={setIsQuestionModalOpen}
         />}
 

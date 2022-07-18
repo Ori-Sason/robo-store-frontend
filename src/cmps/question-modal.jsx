@@ -2,7 +2,8 @@ export const QuestionModal = ({ question, answers, cbFuncs, setModalFunc }) => {
 
     const onButtonClick = (ev, idx) => {
         ev.stopPropagation()
-        cbFuncs[idx]()
+        const func = cbFuncs[idx]
+        if(func) func()
         setModalFunc(null)
     }
 

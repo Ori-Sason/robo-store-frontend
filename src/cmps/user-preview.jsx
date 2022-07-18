@@ -9,13 +9,13 @@ export const UserPreview = ({ user, onToggleAdmin, onDeleteUser, openQuestionMod
             `Are you sure you want to remove admin authorizations from ${fullname}?` :
             `Are you sure you want to set ${fullname} as admin?`
 
-        openQuestionModal(question, ['Cancel', 'OK'], [() => null, () => onToggleAdmin(userId, isAdmin)])
+        openQuestionModal(question, ['Cancel', 'OK'], [null, () => onToggleAdmin(userId, isAdmin)])
     }
 
     const onDeleteClick = (userId, fullname) => {
         const question = `Are you sure you want to remove ${fullname}?`
 
-        openQuestionModal(question, ['Cancel', 'OK'], [() => null, () => onDeleteUser(userId)])
+        openQuestionModal(question, ['Cancel', 'OK'], [null, () => onDeleteUser(userId)])
     }
 
     return <li className="user-preview">
