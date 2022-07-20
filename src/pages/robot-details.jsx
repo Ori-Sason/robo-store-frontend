@@ -53,7 +53,11 @@ export const RobotDetails = () => {
         setIsReviewFormOpen(false)
     }
 
-    if (!robot) return 'Loading'
+    const onAddMsgToChat = (txt) => {
+
+    }
+
+    if (!robot) return 'Loading...'
 
     return <section className="robot-details main-layout">
         <h2 className='name page-header'>{robot.name}</h2>
@@ -89,6 +93,6 @@ export const RobotDetails = () => {
             </p>
         }
 
-        <ChatRoom chat={[]} />
+        <ChatRoom loggedInUser={user} chat={robot.chat} chatRoomId={robot._id} chatTitle={robot.name + ' Chat'} />
     </section>
 }

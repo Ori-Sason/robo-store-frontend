@@ -42,35 +42,31 @@
 }
 
 /* Second section is for "regular" styling */
-.chat-room>form {
+.chat-room>.chat-open {
     height: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
 
-    header {
+    &>header {
         display: flex;
         justify-content: space-between;
 
         .title {
             display: flex;
-            align-items: flex-end;
-            gap: 1em;
+            flex-direction: column;
+            gap: 0.5em;
             overflow: hidden;
 
-            h2 {
+            &>* {
                 white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
 
             .typing-msg {
-                margin-bottom: 0.125em;
                 color: #e88be2;
                 font-weight: bold;
-                white-space: nowrap;
-                flex-basis: 0;
-                flex-grow: 1;
-                text-overflow: ellipsis;
-                overflow: hidden;
             }
         }
 
@@ -101,20 +97,21 @@
             margin-bottom: 0.5em;
         }
 
-        .name {
+        .msg-name {
             font-weight: bold;
         }
 
-        a.name:hover {
+        a.msg-name:hover {
             text-decoration: underline;
         }
     }
 
-    .msg-container {
+    .msg-form {
         display: flex;
         gap: 0.5em;
 
         input {
+            min-width: 0;
             flex-grow: 1;
             border-radius: 4px;
         }
@@ -131,5 +128,18 @@
         width: 500px;
         max-width: 500px;
         inset-inline-end: 40px;
+    }
+
+    .chat-room>.chat-open>header .title {
+        align-items: flex-end;
+        flex-direction: row;
+        gap: 1em;
+
+        .user-counter,
+        .typing-msg {
+            margin-bottom: 0.125em;
+            flex-basis: 0;
+            flex-grow: 1;
+        }
     }
 }
