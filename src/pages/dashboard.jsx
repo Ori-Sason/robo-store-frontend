@@ -19,11 +19,6 @@ export const Dashboard = () => {
         })()
     }, [])
 
-    const getStars = (num) => {
-        // return '★'.repeat(Math.round(num))
-        return '★'.repeat(5)
-    }
-
     if (!statisticData) return 'Loading...'
 
     return <section className="dashboard main-layout">
