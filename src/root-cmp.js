@@ -10,6 +10,7 @@ import { UserApp } from './pages/users-app';
 import { UserMsg } from './cmps/user-msg';
 import { HomePage } from './pages/home-page';
 import { AboutPage } from './pages/about-page';
+import { Dashboard } from './pages/dashboard';
 
 export function App() {
   return <section className="app">
@@ -25,6 +26,7 @@ export function App() {
         <Route path='/users/:id' element={<UserProfile />} />
         <Route path='/users/edit/:id' element={<UserEdit />} />
         <Route path='/users' element={<UserApp />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='*' element={<HomePage />} /> {/* FIX - change to Home */}
       </Routes>

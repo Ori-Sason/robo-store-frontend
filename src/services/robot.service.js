@@ -9,6 +9,7 @@ export const robotService = {
 	getById,
 	save,
 	remove,
+	getStatistics,
 	getEmptyRobot,
 	getRandomRobotImg,
 	getLabels,
@@ -718,6 +719,14 @@ async function remove(robotId) {
 
 	/* LOCAL STORAGE */
 	// return await storageService.remove(STORAGE_KEY, robotId)
+}
+
+async function getStatistics() {
+	try {
+		return await httpService.get(`${BASE_PATH}/statistics`)
+	} catch (err) {
+		console.log('err', err) /* FIX -  */
+	}
 }
 
 function getEmptyRobot() {

@@ -3,7 +3,8 @@ import { robotService } from '../../services/robot.service'
 export function loadRobots(currFilterBy) {
     return async dispatch => {
         try {
-            const { robots, filterBy } = await robotService.query(currFilterBy)
+            const { robots, filterBy } = await robotService.query(currFilterBy || { pageIdx: 0, numOfPages: 0 })
+            console.log('robots', robots)
             dispatch({ type: 'SET_ROBOTS', robots })
             dispatch({ type: 'SET_FILTERBY', filterBy })
         } catch (err) {
