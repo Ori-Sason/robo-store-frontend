@@ -32,7 +32,7 @@ export const HomePage = () => {
             </div>
             <img className={`robot-img blink-img ${blinkImgClass ? 'visible' : 'invisible'}`}
                 onLoad={() => setBlinkImgClass(true)} src={robotImg} alt="robot"
-                onError={({ target }) => target.src = defaultRobotImg}
+                onError={({ target }) => {setBlinkImgClass(true); target.src = defaultRobotImg}}
             />
         </section>
         {!loggedInUser && <section className='login'>

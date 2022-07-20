@@ -9,24 +9,26 @@ import { UserProfile } from './pages/user-profile';
 import { UserApp } from './pages/users-app';
 import { UserMsg } from './cmps/user-msg';
 import { HomePage } from './pages/home-page';
+import { AboutPage } from './pages/about-page';
 
 export function App() {
   return <section className="app">
     <AppHeader />
-    
-    <Routes>
-      <Route path='/login' element={<LoginSignUp />} />
-      <Route path='/signup' element={<LoginSignUp />} />
-      <Route path='/robots' element={<RobotApp />} />
-      <Route path='/robots/:id' element={<RobotDetails />} />
-      <Route path='/robots/edit/:id' element={<RobotEdit />} />
-      <Route path='/robots/edit/' element={<RobotEdit />} />
-      <Route path='/users/:id' element={<UserProfile />} />
-      <Route path='/users/edit/:id' element={<UserEdit />} />
-      <Route path='/users' element={<UserApp />} />
-      <Route path='*' element={<HomePage />} /> {/* FIX - change to Home */}
-    </Routes>
-    
+    <main>
+      <Routes>
+        <Route path='/login' element={<LoginSignUp />} />
+        <Route path='/signup' element={<LoginSignUp />} />
+        <Route path='/robots' element={<RobotApp />} />
+        <Route path='/robots/:id' element={<RobotDetails />} />
+        <Route path='/robots/edit/:id' element={<RobotEdit />} />
+        <Route path='/robots/edit/' element={<RobotEdit />} />
+        <Route path='/users/:id' element={<UserProfile />} />
+        <Route path='/users/edit/:id' element={<UserEdit />} />
+        <Route path='/users' element={<UserApp />} />
+        <Route path='/about' element={<AboutPage />} />
+        <Route path='*' element={<HomePage />} /> {/* FIX - change to Home */}
+      </Routes>
+    </main>
     <UserMsg />
   </section>
 }

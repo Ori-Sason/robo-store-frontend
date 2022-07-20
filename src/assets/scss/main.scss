@@ -10,6 +10,7 @@
 @import './basic/layout';
 
 /* PAGES */
+@import './pages/about-page';
 @import './pages/home-page';
 @import './pages/robot-app';
 @import './pages/robot-details';
@@ -35,3 +36,4 @@
 @import './cmps/question-modal';
 @import './cmps/user-msg';
 @import './cmps/chat-room';
+@import './cmps/google-map';

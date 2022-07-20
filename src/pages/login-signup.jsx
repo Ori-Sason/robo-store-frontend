@@ -90,8 +90,6 @@ export function LoginSignUp() {
         navigate('/robots')
     }
 
-
-
     return <section className='login-signup'>
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
