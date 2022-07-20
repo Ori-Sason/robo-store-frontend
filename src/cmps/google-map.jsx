@@ -48,7 +48,7 @@ export const GoogleMap = ({ markers, defaultLocation }) => {
         // Important! Always set the container height explicitly
         <div className="google-map" style={{ height: '100vh', width: '100%' }}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyB2Na7Kx7swW4SPkbgj4slrnEPVg8EQ47Q' }}
+                bootstrapURLKeys={{ key: '' }}
                 {...defaultProps}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
