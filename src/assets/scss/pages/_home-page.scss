@@ -33,7 +33,8 @@
         }
     }
 
-    .login {
+    .login,
+    .get-started {
         text-align: center;
 
         &>a {
@@ -56,6 +57,19 @@
                 }
             }
 
+        }
+    }
+
+    .get-started>a:first-of-type {
+        position: relative;
+        display: inline-block;
+        text-align: start;
+        width: 10em;
+        
+        &::after{
+            content: '➤';
+            position: absolute;
+            right: 1em;
         }
     }
 }

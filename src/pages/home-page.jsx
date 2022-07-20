@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { robotService } from '../services/robot.service'
+import defaultRobotImg from '../assets/img/blue-robot.png'
+import { useSelector } from 'react-redux'
 
 
 export const HomePage = () => {
 
-    const [robotImg, setRobotImg] = useState(robotService.getRandomRobotImg())
+    const loggedInUser = useSelector(storeState => storeState.userModule.user)
+    const [robotImg, setRobotImg] = useState(defaultRobotImg)
     const [blinkImgClass, setBlinkImgClass] = useState(false)
     const robotImgIntervalId = useRef()
 
@@ -14,7 +17,7 @@ export const HomePage = () => {
             setBlinkImgClass(false)
             const robotImg = robotService.getRandomRobotImg()
             setRobotImg(robotImg)
-        }, 5000)
+        }, 3000)
 
         return () => {
             clearInterval(robotImgIntervalId.current)
@@ -29,11 +32,15 @@ export const HomePage = () => {
             </div>
             <img className={`robot-img blink-img ${blinkImgClass ? 'visible' : 'invisible'}`}
                 onLoad={() => setBlinkImgClass(true)} src={robotImg} alt="robot"
+                onError={({ target }) => target.src = defaultRobotImg}
             />
         </section>
-        <section className='login'>
+        {!loggedInUser && <section className='login'>
             <Link to='/login' className='login'>Login</Link>
             <Link to='/robots'>Start Anonymously</Link>
-        </section>
+        </section>}
+        {loggedInUser && <section className='get-started'>
+            <Link to='/robots'>Take me in</Link>
+        </section>}
     </section>
 }

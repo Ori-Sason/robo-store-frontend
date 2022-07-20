@@ -13,7 +13,6 @@ export const SOCKET_EMIT_USER_COUNT = 'chat-fire-user-count'
 const BASE_URL = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 
 export const socketService = _createSocketService()
-/* FIX - dummy service? */
 
 // for debugging from console
 // window.socketService = socketService
