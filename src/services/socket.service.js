@@ -1,5 +1,4 @@
 import io from 'socket.io-client'
-// import { userService } from './user.service' /* FIX - this is for login and logout */
 
 export const SOCKET_EMIT_SET_ROOM = 'chat-set-room'
 export const SOCKET_EVENT_ADD_MSG = 'chat-add-msg'
@@ -8,7 +7,6 @@ export const SOCKET_EVENT_USER_IS_TYPING = 'chat-subscribe-typing'
 export const SOCKET_EMIT_USER_IS_TYPING = 'chat-fire-typing'
 export const SOCKET_EVENT_USER_COUNT = 'chat-subscribe-user-count'
 export const SOCKET_EMIT_USER_COUNT = 'chat-fire-user-count'
-/* FIX - more socket names */
 
 const BASE_URL = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 
@@ -24,7 +22,6 @@ function _createSocketService() {
     const socketService = {
         setup() {
             socket = io(BASE_URL)
-            /* FIX - login timeout */
         },
         on(eventName, cb) {
             socket.on(eventName, cb)
@@ -37,8 +34,6 @@ function _createSocketService() {
         emit(eventName, data) {
             socket.emit(eventName, data)
         },
-        /* FIX - login */
-        /* FIX - logout */
         terminate() {
             socket = null
         },
