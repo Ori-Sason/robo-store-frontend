@@ -38,6 +38,6 @@ function dateToString(date, language = 'he-IL') {
     return Intl.DateTimeFormat(language, { dateStyle: 'short', timeStyle: 'short', hour12: false }).format(new Date(date))
 }
 
-function numberWithCommas(num, language = 'he-IL') {
-    return Intl.NumberFormat(language).format(num)
+function numberWithCommas(num, decimals = 2, language = 'he-IL') {
+    return Intl.NumberFormat(language).format(num.toFixed(decimals))
 }

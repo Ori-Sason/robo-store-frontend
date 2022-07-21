@@ -53,10 +53,6 @@ export const RobotDetails = () => {
         setIsReviewFormOpen(false)
     }
 
-    const onAddMsgToChat = (txt) => {
-
-    }
-
     if (!robot) return 'Loading...'
 
     return <section className="robot-details main-layout">

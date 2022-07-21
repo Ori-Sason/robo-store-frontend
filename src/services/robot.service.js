@@ -722,11 +722,7 @@ async function remove(robotId) {
 }
 
 async function getStatistics() {
-	try {
-		return await httpService.get(`${BASE_PATH}/statistics`)
-	} catch (err) {
-		console.log('err', err) /* FIX -  */
-	}
+	return await httpService.get(`${BASE_PATH}/statistics`)
 }
 
 function getEmptyRobot() {

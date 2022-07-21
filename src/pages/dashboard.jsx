@@ -1,23 +1,36 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { RobotPreview } from '../cmps/robot-preview'
+import { VerticalBarChart } from '../cmps/vertical-bar-chart'
 import { robotService } from '../services/robot.service'
 import starFullImg from '../assets/img/star-full.png'
+import { setUserMsg } from '../store/actions/user.action'
 
 export const Dashboard = () => {
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [statisticData, setStatisticData] = useState(null)
 
     useEffect(() => {
         (async function () {
             try {
                 const statistics = await robotService.getStatistics()
-                // console.log('statistics', statistics)
+                console.log('statistics', statistics)
                 setStatisticData(statistics)
             } catch (err) {
-                /* FIX - user msg */
+                dispatch(setUserMsg({ type: 'danger', msg: 'Failed loading statistics. You are redirected.' }))
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000)
             }
         })()
     }, [])
+
+    const getDataFromLabelMap = (dataName) => {
+        return Object.values(statisticData.labelMap).map(label => label[dataName].toFixed(2))
+    }
 
     if (!statisticData) return 'Loading...'
 
@@ -50,10 +63,19 @@ export const Dashboard = () => {
         </section>
 
         <section className='charts'>
-            <ul>
-                <li>chart: prices per toy type</li>
-                <li>chart: Chart showing the percentage of toys that are in stock by type</li>
-            </ul>
+            <VerticalBarChart title={'Average prices per robot label'}
+                labels={Object.keys(statisticData.labelMap)}
+                labelsData={getDataFromLabelMap('avgPricePerType')}
+                hoverTitle='Average Price'
+                color="rgb(91, 57, 189)"
+            />
+            <VerticalBarChart title={'In stock percentage per robot label'}
+                labels={Object.keys(statisticData.labelMap)}
+                labelsData={getDataFromLabelMap('inStockPercentage')}
+                hoverTitle='Percentage'
+                color="rgb(133, 22, 213)"
+                isPercentage={true}
+            />
         </section>
     </section>
 }
