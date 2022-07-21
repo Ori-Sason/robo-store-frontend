@@ -43,13 +43,11 @@ Started as a CPA in an audit department in PwC Israel and continued to a full-ti
 
 Now looking to do my next step as a full stack developer :)
 ## 🔗 Links
-[![potrfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://katherinempeterson.com/)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ori-sason-cpa-318062229/)
 
 Also checkout my course final Project - Wixy - website builder, inspired by Wix:
-
-GitHub: https://github.com/wixy2022/wixy-frontend, https://github.com/wixy2022/wixy-backend
-Deployment: https://wixy-2022.herokuapp.com/#/
+- GitHub: https://github.com/wixy2022/wixy-frontend, https://github.com/wixy2022/wixy-backend
+- Heroku: https://wixy-2022.herokuapp.com/#/
 
 The final project was created with my 2 team mates:
 - Alex Yakovlev - https://www.linkedin.com/in/alex-yakovlev/ & https://github.com/AlexYakovlevCa
