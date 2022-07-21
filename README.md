@@ -1,46 +1,56 @@
-# Getting Started with Create React App and Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Robo Store
 
-## Available Scripts
+Robo store is a FAKE online shopping site for purchasing robots.
+The purpose of the project is mainly to practice developing skills of frontend and backend development, using React and Node.js.
 
-In the project directory, you can run:
+GitHub: https://github.com/Ori-Sason/robo-store-frontend, https://github.com/Ori-Sason/robo-store-backend
+Heroku: https://robo-store.herokuapp.com/#/
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Client:** React (including Web Sockets and PWA), Redux, SASS.
 
-### `npm test`
+**Server:** Node, Express, MongoDB.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Full CRUD operations over robots, users and reviews.
+- User authentication.
+- Admin priorities, such as updating or deleting users and making users as admins.
+- Backend sorting, filtering and pagination.
+- Live chat room using Web Sockets.
+- Dashboard page showing site statistics (using react-chart.js-2).
+- Google Maps API.
+- PWA option for installing on laptop or mobile.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Environment Variables
 
-### `npm run eject`
+To run this project, you will need to add the following environment variables to your .env file
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`SECRET1` - Secret key for encrypting login passwords.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`MONGODB_URI` - URI to Mongodb server.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🚀 About Me
+I'm a full stack developer who just finish 4 months of bootcamp.
 
-## Learn More
+Started as a CPA in an audit department in PwC Israel and continued to a full-time job as a self-educated developer of automated tools for the different departments in the firm (mainly used VBA, C# and Google Scripts).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Now looking to do my next step as a full stack developer :)
+## 🔗 Links
+[![potrfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://katherinempeterson.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ori-sason-cpa-318062229/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Also checkout my course final Project - Wixy - website builder, inspired by Wix:
+
+GitHub: https://github.com/wixy2022/wixy-frontend, https://github.com/wixy2022/wixy-backend
+Deployment: https://wixy-2022.herokuapp.com/#/
+
+The final project was created with my 2 team mates:
+- Alex Yakovlev - https://www.linkedin.com/in/alex-yakovlev/ & https://github.com/AlexYakovlevCa
+- Vicky Polatov - https://github.com/Vicky-PM
