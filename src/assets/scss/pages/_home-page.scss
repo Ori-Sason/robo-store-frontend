@@ -1,12 +1,13 @@
 .home-page {
 
     .hero {
-        margin-bottom: 3em;
+        margin-bottom: 1em;
         min-height: 18.75rem;
         display: flex;
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
+        gap: 1em;
 
         h1,
         h2 {
@@ -15,18 +16,19 @@
         }
 
         h1 {
-            font-size: 6rem;
+            font-size: 2.5rem;
         }
 
         h2 {
-            font-size: 3.5rem;
-            text-indent: 1.5em;
+            font-size: 1.5rem;
+            margin-inline-start: 1em;
         }
     }
 
     .blink-img {
         opacity: 1;
         transition: .5s;
+        max-height: 200px;
 
         &.invisible {
             opacity: 0;
@@ -65,11 +67,31 @@
         display: inline-block;
         text-align: start;
         width: 10em;
-        
-        &::after{
+
+        &::after {
             content: '➤';
             position: absolute;
             right: 1em;
+        }
+    }
+}
+
+@media screen and(min-width: 600px) {
+    .home-page .hero {
+        margin-bottom: 3em;
+        gap: unset;
+
+        h1 {
+            font-size: 6rem;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin-inline-start: 1.5em;
+        }
+
+        .blink-img {
+            max-height: unset;
         }
     }
 }
