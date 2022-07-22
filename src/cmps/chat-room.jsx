@@ -15,7 +15,7 @@ export const ChatRoom = ({ loggedInUser, chat, chatRoomId, chatTitle }) => {
     const [isUnreadMsg, setIsUnreadMsg] = useState(true)
     const [userTypeFullname, setUserTypeFullname] = useState('')
     const [msg, setMsg] = useState('')
-    const [msgs, setMsgs] = useState([...chat])
+    const [msgs, setMsgs] = useState(chat? [...chat] : [])
     const typingTimeoutId = useRef()
     const [connectedUsers, setConnectedUsers] = useState(1)
 

@@ -731,7 +731,7 @@ function getEmptyRobot() {
 		price: 0,
 		labels: [],
 		inStock: false,
-		img: ''
+		img: '',
 	}
 }
 
