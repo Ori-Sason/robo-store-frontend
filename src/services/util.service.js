@@ -39,5 +39,5 @@ function dateToString(date, language = 'he-IL') {
 }
 
 function numberWithCommas(num, decimals = 2, language = 'he-IL') {
-    return Intl.NumberFormat(language).format(num.toFixed(decimals))
+    return Intl.NumberFormat(language).format((+num).toFixed(decimals))
 }

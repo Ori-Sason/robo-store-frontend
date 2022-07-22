@@ -39,7 +39,7 @@ export const VerticalBarChart = ({ title, labels, labelsData, hoverTitle, color,
             datalabels: {
                 display: true,
                 color: 'white',
-                formatter: (num) => utilService.numberWithCommas(+num, 0),
+                formatter: (num) => utilService.numberWithCommas(num, 0),
                 anchor: "end",
                 offset: 10,
                 align: "start"
@@ -61,7 +61,7 @@ export const VerticalBarChart = ({ title, labels, labelsData, hoverTitle, color,
 
     if (isPercentage) {
         options.scales.y.max = 100
-        options.plugins.datalabels.formatter = (num) => utilService.numberWithCommas(+num, 0) + '%'
+        options.plugins.datalabels.formatter = (num) => utilService.numberWithCommas(num, 0) + '%'
     }
 
     const data = {
