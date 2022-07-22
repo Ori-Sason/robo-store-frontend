@@ -6,7 +6,7 @@ import { RobotDetails } from './pages/robot-details';
 import { RobotEdit } from './pages/robot-edit';
 import { UserEdit } from './pages/user-edit';
 import { UserProfile } from './pages/user-profile';
-import { UserApp } from './pages/users-app';
+import { UserApp } from './pages/user-app';
 import { UserMsg } from './cmps/user-msg';
 import { HomePage } from './pages/home-page';
 import { AboutPage } from './pages/about-page';

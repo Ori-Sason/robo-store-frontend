@@ -1,10 +1,16 @@
 .user-preview {
     flex-wrap: wrap;
+
     &,
     &>* {
         display: flex;
         align-items: center;
         gap: 1em;
+
+        button,
+        a {
+            align-self: stretch;
+        }
     }
 
     .details .admin-img {

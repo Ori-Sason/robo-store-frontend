@@ -1,5 +1,6 @@
 .user-msg {
-    min-width: 400px;
+    width: 90%;
+    max-width: 400px;
     min-height: 50px;
     position: fixed;
     right: -10px;
@@ -42,5 +43,12 @@
 
     &.success {
         border-inline-start: 13px solid green;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .user-msg {
+        width: unset;
+        min-width: 400px
     }
 }
