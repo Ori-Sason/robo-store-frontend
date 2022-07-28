@@ -55,6 +55,8 @@ export const RobotDetails = () => {
 
     if (!robot) return 'Loading...'
 
+    console.log('reviews', reviews)
+    
     return <section className="robot-details main-layout">
         <h2 className='name page-header'>{robot.name}</h2>
         <div className='img-container'>

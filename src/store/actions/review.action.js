@@ -14,7 +14,7 @@ export function loadReviews(filterBy) {
 
 export function saveReview(review) {
     return async dispatch => {
-        const actionType = review._id ? 'UPDATE_Review' : 'ADD_Review'
+        const actionType = review._id ? 'UPDATE_REVIEW' : 'ADD_REVIEW'
         const userMsg = review._id ? 'Review updated successfully' : 'Review was added successfully'
         try {
             const savedReview = await reviewService.save(review)

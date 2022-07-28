@@ -125,6 +125,12 @@
     }
 }
 
+@media screen and(max-height: 650px) {
+    .chat-room{
+        max-height: 90vh;
+    }
+}
+
 @media screen and(min-width: 600px) {
     .chat-room {
         width: 500px;

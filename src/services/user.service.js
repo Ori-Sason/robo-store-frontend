@@ -4,6 +4,8 @@ const AUTH_BASE_PATH = 'auth/'
 const USER_BASE_PATH = 'user/'
 const STORAGE_KEY_LOGIN = 'robots_loggedInUser'
 
+/* FIX - remove socket service if no need */
+
 export const userService = {
     getLoggedInUser,
     login,
@@ -18,8 +20,8 @@ export const userService = {
 function getLoggedInUser() {
     let user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGIN))
     if (!user) {
-        user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN)) //in case the user checked 'remember me
-        if (user) _rememberUserAndSignToSocket(user, false)
+        user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN)) //in case the user checked 'remember me'
+        if (user) _rememberUser(user, false)
     }
     return user
 }
@@ -27,23 +29,25 @@ function getLoggedInUser() {
 async function login(credentials, isRemember) {
     try {
         const user = await httpService.post(AUTH_BASE_PATH + 'login', credentials)
-        _rememberUserAndSignToSocket(user, isRemember)
+        // socketService.login(user._id)
+        if (user) _rememberUser(user, isRemember)
         return user
     } catch (err) {
         throw err
     }
 }
 
-async function signup(credentials, isRemember) {
-    const user = await httpService.post(AUTH_BASE_PATH + 'signup', credentials)
-    _rememberUserAndSignToSocket(user, isRemember)
+async function signup(userInfo, isRemember) {
+    const user = await httpService.post(AUTH_BASE_PATH + 'signup', userInfo)
+    // socketService.signup(user._id)
+    _rememberUser(user, isRemember)
     return user
 }
 
 async function logout() {
     localStorage.removeItem(STORAGE_KEY_LOGIN)
     sessionStorage.removeItem(STORAGE_KEY_LOGIN)
-    /* FIX - socketService */
+    // socketService.logout()
     return await httpService.post(AUTH_BASE_PATH + 'logout')
 }
 
@@ -76,9 +80,8 @@ async function remove(userId) {
     return await httpService.delete(USER_BASE_PATH + userId)
 }
 
-function _rememberUserAndSignToSocket(user, isRemember) {
+function _rememberUser(user, isRemember) {
     if (user) {
-        /* FIX - socket service */
         sessionStorage.setItem(STORAGE_KEY_LOGIN, JSON.stringify(user))
         if (isRemember) localStorage.setItem(STORAGE_KEY_LOGIN, JSON.stringify(user))
     }

@@ -47,7 +47,7 @@ export const AppHeader = () => {
                             <NavLink to="/robots" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Robots</NavLink>
                             {user?.isAdmin && <NavLink to="/users" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Users</NavLink>}
                             <NavLink to="/dashboard" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>Dashboard</NavLink>
-                            <NavLink to="/" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>About</NavLink>
+                            <NavLink to="/about" className="small-screen-nav-item" onClick={() => setIsMenuOpen(false)}>About</NavLink>
                         </nav>
                         {user && <button className="logout-btn" onClick={() => onLogout()}>Logout</button>}
                     </main>}
